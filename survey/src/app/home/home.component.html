@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div fxLayout="row" fxLayoutAlign="center center" class="content">
+    <div fxFlex="50">
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let survey"> {{survey.name}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>
