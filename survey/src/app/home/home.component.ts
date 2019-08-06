@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 let survey = [
-  {name:'Popis'},
-  {name:'Konj'},
-  {name:'Nesto'}
+  {name:'Item'},
+  {name:'Item'},
+  {name:'Item'}
 ]
 
 @Component({

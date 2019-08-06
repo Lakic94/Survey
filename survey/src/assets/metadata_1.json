@@ -9,10 +9,10 @@
                 "link": "link",
                 "questions": [
                     {
-                        "questionId": 1,
+                        "questionId":1,
                         "title": "title",
                         "componentTypeId": 1,
-                        "required": true,
+                        "required":true,
                         "answers": [
                             {
                                 "answerId": 1,
@@ -20,8 +20,8 @@
                                 "questionId": 1,
                                 "input?": "",
                                 "select?": "",
-                                "radioButton?": true,
-                                "checkbox?": ""
+                                "radioButton?":true,
+                                "checkbox?":""
                             }
                         ]
                     }
@@ -34,10 +34,10 @@
                 "link": "link",
                 "questions": [
                     {
-                        "questionId": 1,
+                        "questionId":1,
                         "title": "title",
                         "componentTypeId": 1,
-                        "required": true,
+                        "required":true,
                         "answers": [
                             {
                                 "answerId": 1,
@@ -45,8 +45,8 @@
                                 "questionId": 1,
                                 "input?": "",
                                 "select?": "",
-                                "radioButton?": true,
-                                "checkbox?": ""
+                                "radioButton?":true,
+                                "checkbox?":""
                             }
                         ]
                     }
