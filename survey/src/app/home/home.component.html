@@ -3,7 +3,7 @@
 
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            <!-- Symbol Column -->
+            
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                 <mat-cell *matCellDef="let survey"> {{survey.name}} </mat-cell>
@@ -14,3 +14,30 @@
         </mat-table>
     </div>
 </div>
+
+    
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <input placeholder="Name" formControlName="name">
+
+    <div formArrayName="credentials" *ngFor="let creds of form.controls.credentials?.value; let i = index">
+        <ng-container [formGroupName]="i">
+            
+           <label> <input type="checkbox"  formControlName="username">Username</label>
+            <input placeholder="Password" formControlName="password">
+            
+        </ng-container>
+        
+    </div>
+
+    <button (click)="addCreds()">Add</button>
+    
+
+    <button>submit</button>
+
+
+
+    
+</form>
+
+{{ form.value | json }}

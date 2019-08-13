@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
 let survey = [
   {name:'Item'},
@@ -18,9 +19,36 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['name'];
   dataSource = survey;
 
-  constructor() { }
+  form: FormGroup;
 
-  ngOnInit() {
+  
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      name:'',
+      credentials: this.fb.array([]),
+    });
   }
+
+  addCreds() {
+    const creds = this.form.controls.credentials as FormArray;
+    creds.push(this.fb.group({
+      username: '',
+      password: '',
+    }));
+
+    console.log('addcred')
+
+    
+  }
+
+  submit(){
+    console.log(this.form.controls)
+
+    console.log('submit')
+
+  }
+
+  ngOnInit(){}
 
 }
