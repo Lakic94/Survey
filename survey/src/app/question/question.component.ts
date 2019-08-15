@@ -12,6 +12,9 @@ export class QuestionComponent implements OnInit {
 
   title = "Title";
 
+
+ comp = DialogComponent;
+
   
 
   constructor(public matDialog:MatDialog) { }
@@ -21,7 +24,7 @@ export class QuestionComponent implements OnInit {
   }
 
   openDialog(){
-    this.matDialog.open(DialogComponent,{
+    this.matDialog.open(this.comp,{
       width:'50%',
       height:'90%'
       
