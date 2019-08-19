@@ -30,16 +30,31 @@
             </div>
         </form>
     </mat-step>
-    <mat-step *ngIf="selectedType" [stepControl]="questionFormGroup"> 
+    <mat-step *ngIf="selectedType" [stepControl]="questionFormGroup">
         <form [formGroup]="questionFormGroup">
-            <ng-template matStepLabel>Options</ng-template>
-            <mat-list formArrayName="options" *ngFor="let cd of questionFormGroup.controls.options.controls; let i=index;">
-                    <mat-list-item> {{i}} </mat-list-item>
-                   </mat-list>
-            <button mat-button >Next</button>
-            <div>
-                <button mat-button matStepperNext>Next</button>
+            <div fxLayoutAlign="space-between center">
+                <h3>Options</h3>
+
             </div>
+            <div formArrayName="options" fxLayout="column">
+                <div *ngFor="let answer of optionsArray.controls; let i = index" fxLayout="row"
+                    fxLayoutAlign="space-between stretch">
+                    <mat-form-field fxFlex="70">
+                        <mat-label>Option {{ i+1 }} </mat-label>
+                        <input fxFlex matInput [formControlName]="i">
+                        <button mat-button color="primary" (click)="removeItem(i)" matTooltipPosition="right">
+                            Remove
+                        </button>
+                    </mat-form-field>
+
+
+
+                </div>
+            </div>
+
+            <button mat-raised-button color="primary" (click)="addItem()" mat-mini-fab type="button">
+                <mat-icon>add</mat-icon>
+            </button>
         </form>
     </mat-step>
     <mat-step>
@@ -52,4 +67,4 @@
     </mat-step>
 </mat-horizontal-stepper>
 
-{{questionFormGroup.value | json}}
+<pre>{{questionFormGroup.value | json}}</pre>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dialog',
@@ -10,10 +10,10 @@ export class DialogComponent implements OnInit {
 
 
   questionTypes = [
-    'input',
-    'radio',
-    'checkbox',
-    'select'
+    'Input',
+    'Radio',
+    'Checkbox',
+    'Select'
 
   ]
 
@@ -42,24 +42,24 @@ export class DialogComponent implements OnInit {
     this.questionFormGroup = this._formBuilder.group({
       title: ['', Validators.required],
       questionType: ['', Validators.required],
-      options: this._formBuilder.array([{name:'poz'},{name:'poaa'}])
+      options: this._formBuilder.array([
+        this._formBuilder.control('', Validators.required)
+      ])
 
     });
 
-  }
-
-  createItem(){
-    return this._formBuilder.group({
-      name: ''
-    });
   }
 
   addItem(){
-    this.OptionsArray.push(this.createItem());
+    this.optionsArray.push(this._formBuilder.control(''));
   }
 
-  get OptionsArray(){
+  get optionsArray(){
     return this.questionFormGroup.get('options') as FormArray;
+  }
+
+  removeItem(index:number){
+    this.optionsArray.removeAt(index);
   }
 
 }
