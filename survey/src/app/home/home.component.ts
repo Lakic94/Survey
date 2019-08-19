@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormsService } from '../shared/forms.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { AddSurveyDialogComponent } from '../add-survey-dialog/add-survey-dialog.component';
 
-let survey = [
-  {name:'Item'},
-  {name:'Item'},
-  {name:'Item'}
-]
+
 
 @Component({
   selector: 'app-home',
@@ -16,39 +16,32 @@ let survey = [
 
 export class HomeComponent implements OnInit {
 
-  displayedColumns: string[] = ['name'];
-  dataSource = survey;
+  public data = [];
 
-  form: FormGroup;
+  displayedColumns: string[] = ['Title'];
+  dataSource = new MatTableDataSource<any>(this.data);
 
   
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      name:'',
-      credentials: this.fb.array([]),
-    });
+  constructor(private fb: FormBuilder, private sharedService:FormsService, public matDialog:MatDialog) {}
+
+
+  ngOnInit(){
+    this.sharedService.getAll('Survey').subscribe(data =>
+      { this.dataSource = new MatTableDataSource(data),
+        console.log(data)});
   }
 
-  addCreds() {
-    const creds = this.form.controls.credentials as FormArray;
-    creds.push(this.fb.group({
-      username: '',
-      password: '',
-    }));
-
-    console.log('addcred')
-
-    
+  openDialog(){
+    this.matDialog.open(AddSurveyDialogComponent,{
+      width:'50%',
+      height:'90%'
+      
+    })
   }
 
-  submit(){
-    console.log(this.form.controls)
-
-    console.log('submit')
-
+  openSurvey(id){
+    console.log(id);
   }
-
-  ngOnInit(){}
 
 }

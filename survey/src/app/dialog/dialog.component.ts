@@ -17,19 +17,7 @@ export class DialogComponent implements OnInit {
 
   ]
 
-  answerOption=[
-    {name:'poz'},
-    {name:'asdas'},
-    {name:'poz'},
-    {name:'asdas'}
-  ]
-
-  selectedTyp(event){
-    if(event === 'input'){
-      this.selectedType = false;
-    }
-    else this.selectedType = true;
-  }
+  
   selectedType=false;
 
   cisLinear = false;
@@ -62,4 +50,10 @@ export class DialogComponent implements OnInit {
     this.optionsArray.removeAt(index);
   }
 
+  selectedTyp(event){
+    if(event === 'input'){
+      this.selectedType = false;
+    }
+    else this.selectedType = true;
+  }
 }

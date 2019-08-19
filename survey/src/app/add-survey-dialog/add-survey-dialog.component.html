@@ -1,0 +1,17 @@
+<form [formGroup]="titleForm" (submit)="saveSurvey()">
+    <mat-form-field>        
+        <input placeholder="Title" matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field>        
+        <input placeholder="Description" matInput formControlName="description">
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="primary" >Save</button>
+
+    <button mat-button  mat-dialog-close>Close</button>
+
+</form>
+
+
+{{titleForm.value | json}}

@@ -3,41 +3,18 @@
 
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                <mat-cell *matCellDef="let survey"> {{survey.name}} </mat-cell>
+
+            <ng-container id="row1" matColumnDef="Title">
+                <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{data.title}} </mat-cell>
             </ng-container>
+            
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row (click)="openSurvey(row.id)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        <div>
+            <button class="button" mat-fab color="primary" (click)="openDialog()">Add</button>
+        </div>
     </div>
 </div>
-
-    
-    <form [formGroup]="form" (ngSubmit)="submit()">
-
-        <input placeholder="Name" formControlName="name">
-
-    <div formArrayName="credentials" *ngFor="let creds of form.controls.credentials?.value; let i = index">
-        <ng-container [formGroupName]="i">
-            
-           <label> <input type="checkbox"  formControlName="username">Username</label>
-            <input placeholder="Password" formControlName="password">
-            
-        </ng-container>
-        
-    </div>
-
-    <button (click)="addCreds()">Add</button>
-    
-
-    <button>submit</button>
-
-
-
-    
-</form>
-
-{{ form.value | json }}

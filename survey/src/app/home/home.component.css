@@ -1,0 +1,10 @@
+.button {
+    position: absolute;
+    bottom: 10px;
+    left: 90%;
+}
+
+mat-cell:hover{
+   background-color:#f3f3f3; 
+   cursor: pointer;
+}

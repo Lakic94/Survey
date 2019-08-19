@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";
 
 
 import { AppComponent } from './app.component';
@@ -11,12 +12,15 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { QuestionModule } from './question/question.module';
 import { QuestionComponent } from './question/question.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { FormsService } from './shared/forms.service';
+import { AddSurveyDialogComponent } from './add-survey-dialog/add-survey-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DialogComponent
+    DialogComponent,
+    AddSurveyDialogComponent
     
   ],
   imports: [
@@ -26,13 +30,15 @@ import { DialogComponent } from './dialog/dialog.component';
     BrowserAnimationsModule,
     QuestionModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 
   entryComponents: [
-    DialogComponent
+    DialogComponent,
+    AddSurveyDialogComponent
   ],
-  providers: [],
+  providers: [FormsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
