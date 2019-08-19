@@ -9,14 +9,10 @@ export class FormsService {
 
   constructor(private http:HttpClient) { }
 
-  readonly Url="http://localhost/8080/api";
+  readonly Url="http://localhost:8000/api/Metadata/";
 
   getById(collection:string, id:number):Observable<any>{
     return this.http.get(this.Url+`${collection}/${id}`);
-  }
-
-  getByFilter(collection:string):Observable<any>{
-    return this.http.get(this.Url+`${collection}/filter`);
   }
 
   getAll(collection:string):Observable<any>{
