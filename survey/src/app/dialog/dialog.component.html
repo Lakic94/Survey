@@ -32,6 +32,7 @@
     </mat-step>
     <mat-step *ngIf="selectedType" [stepControl]="questionFormGroup">
         <form [formGroup]="questionFormGroup">
+                <ng-template matStepLabel>Question Options</ng-template>
             <div fxLayoutAlign="space-between center">
                 <h3>Options</h3>
 
