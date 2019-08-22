@@ -21,26 +21,30 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['Title'];
   dataSource = new MatTableDataSource<any>(this.data);
 
-  
-
-  constructor(private fb: FormBuilder, private sharedService:FormsService, public matDialog:MatDialog) {}
 
 
-  ngOnInit(){
-    this.sharedService.getAll('Survey').subscribe(data =>
-      { this.dataSource = new MatTableDataSource(data),
-        console.log(data)});
+  constructor(private fb: FormBuilder, private sharedService: FormsService, public matDialog: MatDialog) { }
+
+
+  ngOnInit() {
+    this.sharedService.getAll('Survey').subscribe(data => {
+
+      this.dataSource = new MatTableDataSource(data)
+      console.log(data)
+
+
+    });
   }
 
-  openDialog(){
-    this.matDialog.open(AddSurveyDialogComponent,{
-      width:'50%',
-      height:'90%'
-      
+  openDialog() {
+    this.matDialog.open(AddSurveyDialogComponent, {
+      width: '50%',
+      height: '90%'
+
     })
   }
 
-  openSurvey(id){
+  openSurvey(id) {
     console.log(id);
   }
 
