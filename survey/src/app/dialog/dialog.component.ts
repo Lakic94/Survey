@@ -51,9 +51,15 @@ export class DialogComponent implements OnInit {
   }
 
   selectedTyp(event){
-    if(event === 'input'){
+    if(event === 'Input'){
       this.selectedType = false;
     }
     else this.selectedType = true;
   }
+
+  onSubmit(){
+    console.log(this.questionFormGroup.value);
+  }
+
+  
 }

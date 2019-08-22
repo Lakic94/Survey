@@ -5,7 +5,7 @@ import { QuestionComponent } from './question/question.component';
 
 const routes:Routes = [
   {path: '', component:HomeComponent},
-  {path: 'id', loadChildren: ()=> import('./question/question.module').then(mod=>mod.QuestionModule)}
+  {path: 'question', loadChildren: ()=> import('./question/question.module').then(mod=>mod.QuestionModule)}
 ]
 
 @NgModule({

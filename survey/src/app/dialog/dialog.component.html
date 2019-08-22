@@ -1,17 +1,18 @@
-<mat-horizontal-stepper #stepper>
-    <mat-step [stepControl]="questionFormGroup">
-        <form [formGroup]="questionFormGroup">
+<form [formGroup]="questionFormGroup" (ngSubmit)="onSubmit()">
+
+    <mat-horizontal-stepper #stepper>
+
+        <mat-step [stepControl]="questionFormGroup">
             <ng-template matStepLabel>Question Title</ng-template>
             <mat-form-field>
                 <input matInput placeholder="Question Title" formControlName="title" required>
             </mat-form-field>
             <div>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button matStepperNext type="button">Next</button>
             </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="questionFormGroup">
-        <form [formGroup]="questionFormGroup">
+        </mat-step>
+
+        <mat-step [stepControl]="questionFormGroup">
             <ng-template matStepLabel>Type of question</ng-template>
             <mat-form-field>
                 <mat-select (selectionChange)="selectedTyp($event.value)" matInput placeholder="Question Type"
@@ -19,23 +20,18 @@
                     <mat-option *ngFor="let item of questionTypes" [value]='item'>
                         {{item}}
                     </mat-option>
-
                 </mat-select>
-
-
             </mat-form-field>
             <div>
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button matStepperNext type="button">Next</button>
             </div>
-        </form>
-    </mat-step>
-    <mat-step *ngIf="selectedType" [stepControl]="questionFormGroup">
-        <form [formGroup]="questionFormGroup">
-                <ng-template matStepLabel>Question Options</ng-template>
+        </mat-step>
+
+        <mat-step *ngIf="selectedType" [stepControl]="questionFormGroup">
+            <ng-template matStepLabel>Question Options</ng-template>
             <div fxLayoutAlign="space-between center">
                 <h3>Options</h3>
-
             </div>
             <div formArrayName="options" fxLayout="column">
                 <div *ngFor="let answer of optionsArray.controls; let i = index" fxLayout="row"
@@ -47,30 +43,28 @@
                             Remove
                         </button>
                     </mat-form-field>
-
-
-
                 </div>
             </div>
-
             <button mat-raised-button color="primary" (click)="addItem()" mat-mini-fab type="button">
                 <mat-icon>add</mat-icon>
             </button>
-        </form>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext type="button">Next</button>
+            </div>
+        </mat-step>
 
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-        </div>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-        </div>
-    </mat-step>
-</mat-horizontal-stepper>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-flat-button type="submit">Submit</button>
+            </div>
+        </mat-step>
+
+    </mat-horizontal-stepper>
+
+</form>
 
 <pre>{{questionFormGroup.value | json}}</pre>

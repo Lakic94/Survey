@@ -3,19 +3,16 @@
 
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-
             <ng-container id="row" matColumnDef="Title">
                 <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
                 <mat-cell *matCellDef="let data"> {{data.title}} </mat-cell>
             </ng-container>
             
-
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row (click)="openSurvey(row.id)" [routerLink]="[row.id]" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row (click)="clickOnRow(row.id)"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
         <div>
             <button class="button" mat-fab color="primary" (click)="openDialog()">Add</button>
         </div>
     </div>
 </div>
-<h1>Proba</h1>

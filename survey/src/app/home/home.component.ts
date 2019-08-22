@@ -4,6 +4,7 @@ import { FormsService } from '../shared/forms.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSurveyDialogComponent } from '../add-survey-dialog/add-survey-dialog.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -20,10 +21,19 @@ export class HomeComponent implements OnInit {
 
   displayedColumns: string[] = ['Title'];
   dataSource = new MatTableDataSource<any>(this.data);
+  sub: any;
+  id: any;
 
-
-
-  constructor(private fb: FormBuilder, private sharedService: FormsService, public matDialog: MatDialog) { }
+  constructor(private fb: FormBuilder,
+    private sharedService: FormsService,
+    public matDialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute) {
+      // this.sub = this.route.params.subscribe(params => {
+      //   this.id = params['id'];
+      //   console.log(this.id);
+      // });
+  }
 
 
   ngOnInit() {
@@ -44,8 +54,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  openSurvey(id) {
+  
+
+  clickOnRow(id) {
     console.log(id);
+    this.router.navigateByUrl('/create/' + id);
   }
 
 }
