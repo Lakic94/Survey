@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsService } from '../shared/forms.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { formModel } from '../shared/form.model';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -18,13 +19,13 @@ export class DialogComponent implements OnInit {
     'Select'
   ]
 
+  questions:string[];
+
   res: any;
 
   selectedType = false;
 
-  cisLinear = false;
   questionFormGroup: FormGroup;
-  // secondFormGroup: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -32,7 +33,7 @@ export class DialogComponent implements OnInit {
     private formsService: FormsService,
     private _snackBar: MatSnackBar
   ) {
-    this.formsService.getById("Survey", this.data).subscribe(res => { this.res = res, console.log(res.id) });
+    this.formsService.getById("Survey", this.data).subscribe(res => { this.res = res });
   }
 
   ngOnInit() {
@@ -44,7 +45,6 @@ export class DialogComponent implements OnInit {
       ])
 
     });
-
 
   }
 
@@ -67,30 +67,34 @@ export class DialogComponent implements OnInit {
     else this.selectedType = true;
   }
 
-  openSnackBar() {
 
-    this._snackBar.open("Question Added", 'Close', {
-      duration: 1000
-    })
-  }
 
   onSubmit() {
-    if (this.res.question) {
-      this.res.questions.push(this.questionFormGroup.value);
-    }
-    else {
-      this.res.questions = [];
-      this.res.questions.push(this.questionFormGroup.value)
-    }
+    // console.log(this.res)
+    // if (this.res.question) {
+    //   this.res.questions.push(this.questionFormGroup.value);
+    //   console.log('ima niza')
+    // }
+    // else {
+    //   this.res.questions = [];
+    //   this.res.questions.push(this.questionFormGroup.value)
+    // }
+
     
-    delete this.res._id;
+
+    console.log(this.questionFormGroup.value)
+
+    // this.questions.push(this.questionFormGroup.value)
+
     console.log(this.res)
+
+    // delete this.res._id;
+    
     this.questionFormGroup.reset();
-    this.formsService.update("Survey", this.data, this.res
-    ).subscribe(res => console.log(res))
+    // this.formsService.update("Survey", this.data, this.questionFormGroup.value
+    // ).subscribe()
+
+    
   }
-
-
-
 
 }

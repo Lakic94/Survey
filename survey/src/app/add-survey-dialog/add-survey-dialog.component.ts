@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormsService } from '../shared/forms.service';
+import { formModel } from '../shared/form.model';
 
 @Component({
   selector: 'app-add-survey-dialog',
@@ -10,6 +11,8 @@ import { FormsService } from '../shared/forms.service';
 export class AddSurveyDialogComponent implements OnInit {
 
   titleForm: FormGroup;
+
+  form:formModel;
 
   constructor(private formBuilder: FormBuilder, private sharedService: FormsService) {
     
@@ -25,8 +28,11 @@ export class AddSurveyDialogComponent implements OnInit {
 
   saveSurvey() {
 
+    this.form = this.titleForm.value;
+    console.log(this.form);
+
     this.sharedService.add("Survey", this.titleForm.value).subscribe(e => {
-      console.log(this.titleForm)
+      // console.log(this.titleForm)
     });
 
   }
