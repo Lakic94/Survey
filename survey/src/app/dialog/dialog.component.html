@@ -59,7 +59,9 @@
             You are now done.
             <div>
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-flat-button type="submit">Submit</button>
+                <button mat-flat-button type="submit" color="primary" (click)="openSnackBar()">Submit</button>
+                <button mat-flat-button mat-dialog-close >Close</button>
+                
             </div>
         </mat-step>
 
@@ -67,4 +69,4 @@
 
 </form>
 
-<pre>{{questionFormGroup.value | json}}</pre>
+<!-- <pre>{{questionFormGroup.value | json}}</pre> -->

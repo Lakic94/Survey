@@ -14,6 +14,8 @@ import { QuestionComponent } from './question/question.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { FormsService } from './shared/forms.service';
 import { AddSurveyDialogComponent } from './add-survey-dialog/add-survey-dialog.component';
+import { HomeService } from './home/home.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { AddSurveyDialogComponent } from './add-survey-dialog/add-survey-dialog.
     DialogComponent,
     AddSurveyDialogComponent
   ],
-  providers: [FormsService],
+  providers: [FormsService,HomeService ,{ provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

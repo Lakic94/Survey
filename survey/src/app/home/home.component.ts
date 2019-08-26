@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSurveyDialogComponent } from '../add-survey-dialog/add-survey-dialog.component';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HomeService } from './home.service';
 
 
 
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
     private sharedService: FormsService,
     public matDialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private homeService: HomeService) {
       // this.sub = this.route.params.subscribe(params => {
       //   this.id = params['id'];
       //   console.log(this.id);
@@ -49,7 +51,7 @@ export class HomeComponent implements OnInit {
   openDialog() {
     this.matDialog.open(AddSurveyDialogComponent, {
       width: '50%',
-      height: '90%'
+      height: '60%'
 
     })
   }
@@ -57,7 +59,7 @@ export class HomeComponent implements OnInit {
   
 
   clickOnRow(id) {
-    console.log(id);
+    this.homeService.emitRowIdChanged(id);
     this.router.navigateByUrl('/create/' + id);
   }
 

@@ -11,7 +11,7 @@ export class FormsService {
 
   readonly Url="http://localhost:8000/api/Metadata/";
 
-  getById(collection:string, id:number):Observable<any>{
+  getById(collection:string, id:string):Observable<any>{
     return this.http.get(this.Url+`${collection}/${id}`);
   }
 
@@ -23,11 +23,11 @@ export class FormsService {
     return this.http.post(this.Url+`${collection}`,data);
   }
 
-  update(collection:string,id:number, data:any):Observable<any>{
-    return this.http.post(this.Url+`${collection}/${id}`,data);
+  update(collection:string,id:string, data:any):Observable<any>{
+    return this.http.put(this.Url+`${collection}/${id}`,data);
   }
 
-  delete(collection:string, id:number):Observable<any>{
+  delete(collection:string, id:string):Observable<any>{
     return this.http.delete(this.Url+`${collection}/${id}`);
   }
 
