@@ -19,9 +19,9 @@ export class DialogComponent implements OnInit {
     'Select'
   ]
 
-  questions:string[];
+  questions: string[];
 
-  form:formModel;
+  form: formModel;
 
   res: any;
 
@@ -69,40 +69,24 @@ export class DialogComponent implements OnInit {
     else this.selectedType = true;
   }
 
-
-
   onSubmit() {
-    // if (this.res.questions) {
-    //   this.res.questions.push(this.questionFormGroup.value);
-      
-    // }
-    // else {
-    //   this.res.questions = [];
-    //   this.res.questions.push(this.questionFormGroup.value)
-    // }
 
-    console.log(this.form)
-
-    this.form.questions.push(this.questionFormGroup.value)
-    
+    this.form.questions.push(this.questionFormGroup.value);
 
     delete this.form._id;
 
-    console.log(this.form)
-    
-    if(this.questionFormGroup.valid){
+    if (this.questionFormGroup.valid) {
+      this.formsService.update("Survey", this.data, this.form
+      ).subscribe(e => console.log(e))
+
       console.log("valid")
-      this._snackBar.open("Added", "Close",{
-        duration:2000
+
+      this._snackBar.open("Added", "Close", {
+        duration: 2000
       })
+      
+      this.questionFormGroup.reset();
     }
-
-    this.formsService.update("Survey", this.data, this.form
-    ).subscribe(e => console.log(e))
-
-    this.questionFormGroup.reset();
-
-    
   }
 
 }
