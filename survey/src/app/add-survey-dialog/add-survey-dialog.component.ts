@@ -31,7 +31,7 @@ export class AddSurveyDialogComponent implements OnInit {
     this.form = this.titleForm.value;
     console.log(this.form);
 
-    this.sharedService.add("Survey", this.titleForm.value).subscribe(e => {
+    this.sharedService.add("Survey", this.form).subscribe(e => {
       // console.log(this.titleForm)
     });
 

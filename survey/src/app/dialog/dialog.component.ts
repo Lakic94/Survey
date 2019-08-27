@@ -21,6 +21,8 @@ export class DialogComponent implements OnInit {
 
   questions:string[];
 
+  form:formModel;
+
   res: any;
 
   selectedType = false;
@@ -33,7 +35,7 @@ export class DialogComponent implements OnInit {
     private formsService: FormsService,
     private _snackBar: MatSnackBar
   ) {
-    this.formsService.getById("Survey", this.data).subscribe(res => { this.res = res });
+    this.formsService.getById("Survey", this.data).subscribe(res => { this.form = res });
   }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class DialogComponent implements OnInit {
       title: ['', Validators.required],
       questionType: ['', Validators.required],
       options: this._formBuilder.array([
-        this._formBuilder.control('', Validators.required)
+        this._formBuilder.control('')
       ])
 
     });
@@ -70,29 +72,35 @@ export class DialogComponent implements OnInit {
 
 
   onSubmit() {
-    // console.log(this.res)
-    // if (this.res.question) {
+    // if (this.res.questions) {
     //   this.res.questions.push(this.questionFormGroup.value);
-    //   console.log('ima niza')
+      
     // }
     // else {
     //   this.res.questions = [];
     //   this.res.questions.push(this.questionFormGroup.value)
     // }
 
+    console.log(this.form)
+
+    this.form.questions.push(this.questionFormGroup.value)
     
 
-    console.log(this.questionFormGroup.value)
+    delete this.form._id;
 
-    // this.questions.push(this.questionFormGroup.value)
-
-    console.log(this.res)
-
-    // delete this.res._id;
+    console.log(this.form)
     
+    if(this.questionFormGroup.valid){
+      console.log("valid")
+      this._snackBar.open("Added", "Close",{
+        duration:2000
+      })
+    }
+
+    this.formsService.update("Survey", this.data, this.form
+    ).subscribe(e => console.log(e))
+
     this.questionFormGroup.reset();
-    // this.formsService.update("Survey", this.data, this.questionFormGroup.value
-    // ).subscribe()
 
     
   }
