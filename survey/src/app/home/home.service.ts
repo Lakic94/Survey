@@ -22,8 +22,7 @@ export class HomeService {
     let group:any={};
 
     questions.forEach(element => {
-      group[element.title] = new FormControl(element.title.value)
-      console.log(group)
+      group[element.title] = new FormControl('')
     });
 
     return new FormGroup(group);

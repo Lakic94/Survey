@@ -71,7 +71,15 @@ export class DialogComponent implements OnInit {
 
   onSubmit() {
 
-    this.form.questions.push(this.questionFormGroup.value);
+    if(this.form.questions){
+      this.form.questions.push(this.questionFormGroup.value);
+    }
+    else{
+      this.form.questions = [];
+      this.form.questions.push(this.questionFormGroup.value);
+    }
+
+    
 
     delete this.form._id;
 

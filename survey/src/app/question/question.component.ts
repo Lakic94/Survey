@@ -65,6 +65,11 @@ export class QuestionComponent implements OnInit {
 
       }
 
+      this.form = this.homeService.toFormGroup(this.questions);
+      console.log(this.form.value);
+
+      console.log(this.questions)
+
     })
 
   }
