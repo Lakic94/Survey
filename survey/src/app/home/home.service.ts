@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,17 @@ export class HomeService {
   emitRowIdChanged(id: any) {
     this.rowIdChanged.next(id);
     this.id = id;
+  }
+
+  toFormGroup(questions:any){
+    let group:any={};
+
+    questions.forEach(element => {
+      group[element.title] = new FormControl(element.title.value)
+      console.log(group)
+    });
+
+    return new FormGroup(group);
+
   }
 }

@@ -37,6 +37,4 @@ export class AddSurveyDialogComponent implements OnInit {
 
   }
 
-  
-
 }

@@ -3,4 +3,10 @@ export class formModel{
     title:string;
     description:string;
     questions:any[]
+
+    constructor(){
+        this.title='',
+        this.description='',
+        this.questions=[]
+    }
 }

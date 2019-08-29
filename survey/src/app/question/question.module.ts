@@ -7,6 +7,7 @@ import { SelectQuestionComponent } from './select-question/select-question.compo
 import { RadioButtonQuestionComponent } from './radio-button-question/radio-button-question.component';
 import { AppMaterialModule } from '../app-material/app-material.module';
 import { QuestionComponent } from './question.component';
+import {ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { QuestionComponent } from './question.component';
   imports: [
     CommonModule,
     QuestionRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    ReactiveFormsModule
     
   ]
 })
