@@ -1,24 +1,34 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <button class="dugme" mat-flat-button (click)="openDialog()">Dodaj</button>
+        <button class="dugme" mat-flat-button (click)="openDialog()">Dodaj</button>
 </div>
 <div *ngIf="form">
-  <div *ngFor="let question of questions">
 
-    <form [formGroup]="form">
-      <label [attr.for]="question.title">{{question.title}}</label>
 
-      <div [ngSwitch]="question.questionType">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div *ngFor="let question of questions">
+                        <label [attr.for]="question.title">{{question.title}}</label>
 
-    <input *ngSwitchCase="'input'" [formControlName]="question.title"
-            [id]="question.title" [type]="question.questionType">
-            
-    <!-- <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
-      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
-    </select> -->
+                        <div [ngSwitch]="question.questionType">
 
-  </div> 
-    </form>
+                                <input *ngSwitchCase="'Input'" [formControlName]="question.title" [id]="question.title"
+                                        [type]="question.questionType">
 
-  </div>
+                                <select [id]="question.title" *ngSwitchCase="'Select'"
+                                        [formControlName]="question.title">
+                                        <option *ngFor="let opt of question.options" [value]="opt">{{opt}}
+                                        </option>
+                                </select>
+
+                                
+
+                        </div>
+
+                </div>
+
+                <div>
+                                <button type="submit">Save</button>
+                        </div>
+        </form>
 
 </div>
+

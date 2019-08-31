@@ -15,6 +15,8 @@ export class QuestionComponent implements OnInit {
   title = "Title";
   private _rowId: any;
 
+  survey:any;
+
   form: FormGroup;
 
   questions: any = [];
@@ -50,6 +52,7 @@ export class QuestionComponent implements OnInit {
 
   getQuestions() {
     return this.sharedService.getById('Survey', this._rowId).subscribe(e => {
+      this.survey = e;
       if (e.questions === undefined) {
         return;
       }
@@ -57,11 +60,6 @@ export class QuestionComponent implements OnInit {
         for (let i of e.questions) {
           this.questions.push(i)
         }
-        console.log("get questions")
-        //this.form = this.homeService.toFormGroup(this.questions);
-        console.log(this.questions)
-
-        console.log("u formi")
 
       }
 
@@ -71,6 +69,31 @@ export class QuestionComponent implements OnInit {
       console.log(this.questions)
 
     })
+
+  }
+
+  onSubmit() {
+
+    if(this.survey.questions.answers){
+      this.survey.questions.answers.push(this.form.value)
+      console.log("ima")
+    }
+    else{
+      this.survey.questions.answers = []
+      console.log(this.form.value)
+      this.survey.questions.answers.push(this.form.value)
+      console.log("nema")
+      console.log(this.survey.question.answers)
+       console.log(this.survey)
+    }
+
+    delete this.survey._id
+   
+    this.sharedService.update("Survey", this._rowId,this.survey).subscribe(e=>console.log(e))
+
+    
+
+    
 
   }
 
