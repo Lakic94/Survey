@@ -12,7 +12,7 @@ export class AddSurveyDialogComponent implements OnInit {
 
   titleForm: FormGroup;
 
-  form:formModel;
+  
 
   constructor(private formBuilder: FormBuilder, private sharedService: FormsService) {
     
@@ -28,11 +28,9 @@ export class AddSurveyDialogComponent implements OnInit {
 
   saveSurvey() {
 
-    this.form = this.titleForm.value;
-    console.log(this.form);
+    let form = new formModel(this.titleForm.value);
 
-    this.sharedService.add("Survey", this.form).subscribe(e => {
-      // console.log(this.titleForm)
+    this.sharedService.add("Survey", form).subscribe(e => {
     });
 
   }

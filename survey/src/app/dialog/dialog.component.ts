@@ -4,6 +4,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsService } from '../shared/forms.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { formModel } from '../shared/form.model';
+import { Question } from '../shared/question.model';
+import { Guid } from "guid-typescript";
+
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -18,8 +21,9 @@ export class DialogComponent implements OnInit {
     'Checkbox',
     'Select'
   ]
+  
 
-  questions: string[];
+  
 
   form: formModel;
 
@@ -69,19 +73,14 @@ export class DialogComponent implements OnInit {
     else this.selectedType = true;
   }
 
-  onSubmit() {
+  onSubmit(form:FormGroup) {
 
-    if(this.form.questions){
-      this.form.questions.push(this.questionFormGroup.value);
-    }
-    else{
-      this.form.questions = [];
-      this.form.questions.push(this.questionFormGroup.value);
-    }
+    this.addQuestion(form)
 
-    
 
     delete this.form._id;
+
+    
 
     if (this.questionFormGroup.valid) {
       this.formsService.update("Survey", this.data, this.form
@@ -97,4 +96,22 @@ export class DialogComponent implements OnInit {
     }
   }
 
+
+  addQuestion(form){
+    let question = new Question(form.value)
+
+    if(form.controls.options.value  != ""){
+      let options = form.controls.options.value
+      console.log(question)
+      question.option(options);
+    }
+
+    this.form.questions.push(question)
+
+    question.id  = Guid.raw()
+
+  }
+  
+
 }
+
