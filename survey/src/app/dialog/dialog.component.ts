@@ -108,7 +108,7 @@ export class DialogComponent implements OnInit {
 
     this.form.questions.push(question)
 
-    question.id  = Guid.raw()
+    question.id = Guid.raw()
 
   }
   
