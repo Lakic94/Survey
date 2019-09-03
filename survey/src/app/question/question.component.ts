@@ -53,6 +53,8 @@ export class QuestionComponent implements OnInit {
   getQuestions() {
     return this.sharedService.getById('Survey', this._rowId).subscribe(e => {
       this.survey = e;
+      console.log(this.survey)
+      console.log(e)
       if (e.questions === undefined) {
         return;
       }
@@ -76,20 +78,24 @@ export class QuestionComponent implements OnInit {
 
     if(this.survey.questions.answers){
       this.survey.questions.answers.push(this.form.value)
-      console.log("ima")
+      //console.log("ima")
     }
     else{
       this.survey.questions.answers = []
-      console.log(this.form.value)
+      //console.log(this.form.value)
       this.survey.questions.answers.push(this.form.value)
-      console.log("nema")
-      console.log(this.survey.question.answers)
-       console.log(this.survey)
+      // console.log("nema")
+      // console.log(this.survey.question.answers)
+      //  console.log(this.survey)
     }
+
+    console.log(this.form)
+
+    
 
     delete this.survey._id
    
-    this.sharedService.update("Survey", this._rowId,this.survey).subscribe(e=>console.log(e))
+    //this.sharedService.update("Survey", this._rowId,this.survey).subscribe(e=>console.log(e))
 
     
 

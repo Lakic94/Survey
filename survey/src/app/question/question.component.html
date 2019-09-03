@@ -19,16 +19,27 @@
                                         </option>
                                 </select>
 
-                                
+
+
+                                <mat-radio-group *ngSwitchCase="'Radio'" [formControlName]="question.title"
+                                        [id]="question.title">
+                                        <mat-radio-button *ngFor="let opt of question.options" value="opt">
+                                                {{opcija}}
+                                        </mat-radio-button>
+                                </mat-radio-group>
+
+
+
+
+
 
                         </div>
 
                 </div>
 
                 <div>
-                                <button type="submit">Save</button>
-                        </div>
+                        <button type="submit">Save</button>
+                </div>
         </form>
 
 </div>
-
