@@ -5,6 +5,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { HomeService } from '../home/home.service';
 import { FormsService } from '../shared/forms.service';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { formModel } from '../shared/form.model';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -12,10 +13,10 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@a
 })
 export class QuestionComponent implements OnInit {
 
-  title = "Title";
+  
   private _rowId: any;
 
-  survey:any;
+  survey:formModel;
 
   form: FormGroup;
 
@@ -66,7 +67,7 @@ export class QuestionComponent implements OnInit {
       }
 
       this.form = this.homeService.toFormGroup(this.questions);
-      // console.log(this.form.value);
+      console.log(e.questions);
 
       // console.log(this.questions)
 
@@ -76,20 +77,15 @@ export class QuestionComponent implements OnInit {
 
   onSubmit() {
 
-    if(this.survey.questions.answers){
-      this.survey.questions.answers.push(this.form.value)
-      //console.log("ima")
-    }
-    else{
-      this.survey.questions.answers = []
-      //console.log(this.form.value)
-      this.survey.questions.answers.push(this.form.value)
-      // console.log("nema")
-      // console.log(this.survey.question.answers)
-      //  console.log(this.survey)
-    }
+    
 
-    console.log(this.form)
+     for(let i = 0; i < 3;i++){
+       //this.survey.questions[i].answers.push(this.form.value[i])
+       //console.log( this.survey.questions[i].answers)
+       console.log(Object.values(this.form.controls.value));
+     }
+
+    
 
     
 
