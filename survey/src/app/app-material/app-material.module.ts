@@ -44,6 +44,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 
+
 @NgModule({
   exports: [
     MatIconModule,
@@ -89,7 +90,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatTableModule,
     MatTooltipModule,
     MatTreeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatIconModule
   ]
 })
 export class AppMaterialModule { }

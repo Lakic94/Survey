@@ -77,21 +77,43 @@ export class QuestionComponent implements OnInit {
 
   onSubmit() {
 
-    
+    let arr = [this.form.value]
 
-     for(let i = 0; i < 3;i++){
-       //this.survey.questions[i].answers.push(this.form.value[i])
-       //console.log( this.survey.questions[i].answers)
-       console.log(Object.values(this.form.controls.value));
-     }
+    console.log(this.form.value)
 
-    
+    // for(let i = 0; i < arr.length;i++){
+    //   console.log(arr[i].value)
+    // }
 
+     let v = Object.entries(this.form.value)
+     console.log(v)
+
+     
+
+    for(let i =0; i < v.length;i++){
+
+      console.log(v[i][1])
+
+      
+
+      let a = v[i][1] 
+      //console.log(v[i][0])
+
+      this.survey.questions[i].answers.push(a)
+
+    }
+
+    console.log(this.form.value)
+
+    console.log(this.survey.questions)
+
+    //console.log(red)
+    // console.log(arr)
     
 
     delete this.survey._id
    
-    //this.sharedService.update("Survey", this._rowId,this.survey).subscribe(e=>console.log(e))
+    this.sharedService.update("Survey", this._rowId,this.survey).subscribe(e=>console.log(e))
 
     
 
