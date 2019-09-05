@@ -8,6 +8,7 @@ import { RadioButtonQuestionComponent } from './radio-button-question/radio-butt
 import { AppMaterialModule } from '../app-material/app-material.module';
 import { QuestionComponent } from './question.component';
 import {ReactiveFormsModule } from '@angular/forms';
+import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,9 @@ import {ReactiveFormsModule } from '@angular/forms';
     AppMaterialModule,
     ReactiveFormsModule
     
+  ],
+  providers:[
+    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
   ]
 })
 export class QuestionModule { }

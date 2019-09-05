@@ -1,45 +1,56 @@
-<div fxLayout="row" fxLayoutAlign="space-between center">
-        <button class="dugme" mat-flat-button (click)="openDialog()">Dodaj</button>
-</div>
-<div *ngIf="form">
+<div fxLayout="row" fxLayoutAlign="center center">
+        <div *ngIf="form">
 
 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <div *ngFor="let question of questions">
-                        <label [attr.for]="question.title">{{question.title}}</label>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div *ngFor="let question of questions">
+                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
 
-                        <div [ngSwitch]="question.questionType">
-
-                                <input *ngSwitchCase="'Input'" [formControlName]="question.title" [id]="question.title"
-                                        [type]="question.questionType">
-
-                                <select [id]="question.title" *ngSwitchCase="'Select'"
-                                        [formControlName]="question.title">
-                                        <option *ngFor="let opt of question.options" [value]="opt">{{opt}}
-                                        </option>
-                                </select>
+                                <div [ngSwitch]="question.questionType">
 
 
+                                        <mat-card *ngSwitchCase="'Input'">
+                                                <input matInput [formControlName]="question.title" [id]="question.title"
+                                                        [type]="question.questionType">
+                                        </mat-card>
 
-                                <mat-radio-group *ngSwitchCase="'Radio'" [formControlName]="question.title"
+                                        <mat-select [id]="question.title" *ngSwitchCase="'Select'"
+                                                [formControlName]="question.title">
+                                                <mat-option *ngFor="let opt of question.options" [value]="opt">{{opt}}
+                                                </mat-option>
+                                        </mat-select>
+
+
+
+                                        <mat-radio-group *ngSwitchCase="'Radio'" [formControlName]="question.title"
+                                                [id]="question.title">
+                                                <mat-radio-button *ngFor="let opt of question.options" [value]="opt">
+                                                        {{opt}}
+                                                </mat-radio-button>
+                                        </mat-radio-group>
+
+                                        <section *ngSwitchCase="'Checkbox'" [formControlName]="question.title"
                                         [id]="question.title">
-                                        <mat-radio-button *ngFor="let opt of question.options" value="opt">
-                                                {{opcija}}
-                                        </mat-radio-button>
-                                </mat-radio-group>
+                                        <label  *ngFor="let opt of question.options"  ></label>
+                                                <input type="checkbox" >
+                                                
+                                        </section>
 
 
 
 
 
+
+                                </div>
 
                         </div>
 
-                </div>
+                        <div>
+                                <button type="submit">Save</button>
+                        </div>
+                </form>
 
-                <div>
-                        <button type="submit">Save</button>
-                </div>
-        </form>
+                <button class="dugme" mat-flat-button (click)="openDialog()">Dodaj</button>
 
+        </div>
 </div>

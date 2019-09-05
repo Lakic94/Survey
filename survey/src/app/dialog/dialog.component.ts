@@ -94,6 +94,8 @@ export class DialogComponent implements OnInit {
       
       this.questionFormGroup.reset();
     }
+
+    console.log(this.questionFormGroup)
   }
 
 

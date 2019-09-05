@@ -55,7 +55,6 @@ export class QuestionComponent implements OnInit {
     return this.sharedService.getById('Survey', this._rowId).subscribe(e => {
       this.survey = e;
       console.log(this.survey)
-      console.log(e)
       if (e.questions === undefined) {
         return;
       }
@@ -67,9 +66,6 @@ export class QuestionComponent implements OnInit {
       }
 
       this.form = this.homeService.toFormGroup(this.questions);
-      console.log(e.questions);
-
-      // console.log(this.questions)
 
     })
 
@@ -77,47 +73,27 @@ export class QuestionComponent implements OnInit {
 
   onSubmit() {
 
-    let arr = [this.form.value]
+    console.log(this.form)
 
-    console.log(this.form.value)
+    let q = this.form.value
 
-    // for(let i = 0; i < arr.length;i++){
-    //   console.log(arr[i].value)
-    // }
+    let arr = this.survey.questions
 
-     let v = Object.entries(this.form.value)
-     console.log(v)
-
-     
-
-    for(let i =0; i < v.length;i++){
-
-      console.log(v[i][1])
-
-      
-
-      let a = v[i][1] 
-      //console.log(v[i][0])
-
-      this.survey.questions[i].answers.push(a)
-
+    for(let i = 0;i < arr.length;i++){
+      for(let p in q){
+        if(arr[i].title === p){
+          arr[i].answers.push(q[p])
+          delete q[p]
+          break;
+        }
+      }
     }
 
-    console.log(this.form.value)
+    delete this.survey._id
 
     console.log(this.survey.questions)
-
-    //console.log(red)
-    // console.log(arr)
-    
-
-    delete this.survey._id
    
-    this.sharedService.update("Survey", this._rowId,this.survey).subscribe(e=>console.log(e))
-
-    
-
-    
+    //this.sharedService.update("Survey", this._rowId,this.survey).subscribe()
 
   }
 
