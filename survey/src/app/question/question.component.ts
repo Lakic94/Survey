@@ -84,57 +84,66 @@ export class QuestionComponent implements OnInit {
 
     let arr = this.survey.questions
 
-    // for(let i = 0;i < arr.length;i++){
-    //   for(let p in q){
-    //     if(Array.isArray(p)){
-    //       console.log("jeste")
-    //     }
-    //     if(arr[i].title === p){
-    //       arr[i].answers.push(q[p])
-    //       delete q[p]
-    //       break;
-    //     }
-    //     arr.find(function(i))
-    //   }
 
+    for(let i = 0;i < arr.length;i++){
 
-    // }
+      for(let p in form){
 
-    // if( Array.isArray(t)){
-    //   console.log("yey");
-    // }
-    // if( q  ){
-    //   console.log("yey");
-    // }
+        if(Array.isArray(form[p])){
 
-    for (let i = 0; i < arr.length; i++) {
-      const questionElement = arr[i].title;
+          for(let r in form[p]){
 
-      for (let n = 0; n < Object.keys(form).length; n++) {
-        const formElement = Object.keys(form)[n];
-
-        if (Array.isArray(formElement)) {
-          for (let j = 0; j < formElement.length; j++) {
-            const element = formElement[j];
-            if (element) {
-              console.log(element);
+            if(form[p][r] === true){
+              
+              console.log(form[p][r])
+              console.log('ima jedan')
             }
+
           }
-        }
-
-        if (questionElement === formElement) {
-
 
         }
+
+        if(arr[i].title === p){
+
+          arr[i].answers.push(form[p])
+          delete form[p]
+          break;
+        }
+        
       }
+
+
     }
+
+
+    // for (let i = 0; i < arr.length; i++) {
+    //   const questionElement = arr[i].title;
+
+    //   for (let n = 0; n < Object.keys(form).length; n++) {
+    //     const formElement = Object.keys(form)[n];
+
+    //     if (Array.isArray(formElement)) {
+    //       for (let j = 0; j < formElement.length; j++) {
+    //         const element = formElement[j];
+    //         if (element) {
+    //           console.log(element);
+    //         }
+    //       }
+    //     }
+
+    //     if (questionElement === formElement) {
+
+
+    //     }
+    //   }
+    // }
 
 
     delete this.survey._id
 
     // console.log(this.survey.questions)
 
-    //this.sharedService.update("Survey", this._rowId,this.survey).subscribe()
+    this.sharedService.update("Survey", this._rowId,this.survey).subscribe()
 
   }
 

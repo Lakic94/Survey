@@ -31,9 +31,10 @@
 
                                         <section *ngSwitchCase="'Checkbox'" [formArrayName]="question.title">
                                                 
-                                                        <mat-checkbox *ngFor="let opt of question.options; let i = index;" [formControlName]="i">
+                                                        <input type="checkbox" *ngFor="let opt of question.options; let i = index;" [formControlName]="i" value='i'>
                                                         {{opt}}
-                                                        </mat-checkbox>
+                                                        
+                                                        
 
                                                 
                                         </section>
