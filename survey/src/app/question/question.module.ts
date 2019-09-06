@@ -27,7 +27,7 @@ import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
     
   ],
   providers:[
-    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check'}
   ]
 })
 export class QuestionModule { }

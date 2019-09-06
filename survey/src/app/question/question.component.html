@@ -29,10 +29,12 @@
                                                 </mat-radio-button>
                                         </mat-radio-group>
 
-                                        <section *ngSwitchCase="'Checkbox'" [formControlName]="question.title"
-                                        [id]="question.title">
-                                        <label  *ngFor="let opt of question.options"  ></label>
-                                                <input type="checkbox" >
+                                        <section *ngSwitchCase="'Checkbox'" [formArrayName]="question.title">
+                                                
+                                                        <mat-checkbox *ngFor="let opt of question.options; let i = index;" [formControlName]="i">
+                                                        {{opt}}
+                                                        </mat-checkbox>
+
                                                 
                                         </section>
 

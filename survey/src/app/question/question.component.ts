@@ -13,10 +13,10 @@ import { formModel } from '../shared/form.model';
 })
 export class QuestionComponent implements OnInit {
 
-  
+
   private _rowId: any;
 
-  survey:formModel;
+  survey: formModel;
 
   form: FormGroup;
 
@@ -37,6 +37,7 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit() {
     this.getQuestions();
+
 
   }
 
@@ -67,7 +68,11 @@ export class QuestionComponent implements OnInit {
 
       this.form = this.homeService.toFormGroup(this.questions);
 
+      console.log(this.form)
+
     })
+
+
 
   }
 
@@ -75,24 +80,60 @@ export class QuestionComponent implements OnInit {
 
     console.log(this.form)
 
-    let q = this.form.value
+    let form = this.form.value
 
     let arr = this.survey.questions
 
-    for(let i = 0;i < arr.length;i++){
-      for(let p in q){
-        if(arr[i].title === p){
-          arr[i].answers.push(q[p])
-          delete q[p]
-          break;
+    // for(let i = 0;i < arr.length;i++){
+    //   for(let p in q){
+    //     if(Array.isArray(p)){
+    //       console.log("jeste")
+    //     }
+    //     if(arr[i].title === p){
+    //       arr[i].answers.push(q[p])
+    //       delete q[p]
+    //       break;
+    //     }
+    //     arr.find(function(i))
+    //   }
+
+
+    // }
+
+    // if( Array.isArray(t)){
+    //   console.log("yey");
+    // }
+    // if( q  ){
+    //   console.log("yey");
+    // }
+
+    for (let i = 0; i < arr.length; i++) {
+      const questionElement = arr[i].title;
+
+      for (let n = 0; n < Object.keys(form).length; n++) {
+        const formElement = Object.keys(form)[n];
+
+        if (Array.isArray(formElement)) {
+          for (let j = 0; j < formElement.length; j++) {
+            const element = formElement[j];
+            if (element) {
+              console.log(element);
+            }
+          }
+        }
+
+        if (questionElement === formElement) {
+
+
         }
       }
     }
 
+
     delete this.survey._id
 
-    console.log(this.survey.questions)
-   
+    // console.log(this.survey.questions)
+
     //this.sharedService.update("Survey", this._rowId,this.survey).subscribe()
 
   }
