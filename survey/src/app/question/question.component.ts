@@ -78,7 +78,7 @@ export class QuestionComponent implements OnInit {
 
   onSubmit() {
 
-    console.log(this.form)
+    console.log(this.form.value)
 
     let form = this.form.value
 
@@ -90,16 +90,35 @@ export class QuestionComponent implements OnInit {
       for(let p in form){
 
         if(Array.isArray(form[p])){
+          console.log(form[p])
 
-          for(let r in form[p]){
+          let values = (Object.values(form[p]))
 
-            if(form[p][r] === true){
+          for(let j = 0;j<values.length;j++){
+            if(values[j] === true){
+
+              console.log(values[j])
               
-              console.log(form[p][r])
-              console.log('ima jedan')
-            }
+              arr[i].answers.push(arr[i].options[j])
+              
+              delete form[p]
 
+              
+
+              
+            }
           }
+          
+
+          // for(let r in form[p]){
+
+          //   if(form[p][r] === true){
+              
+          //     console.log(form[p][r])
+              
+          //   }
+
+          // }
 
         }
 

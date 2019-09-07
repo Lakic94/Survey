@@ -26,7 +26,7 @@ export class HomeService {
 
       if(element.questionType === 'Checkbox'){
         group[element.title] = new FormArray([])
-        element.options.forEach(i => {
+        element.options.map(i => {
           const control = new FormControl();
           (group[element.title] as FormArray).push(control)
           
