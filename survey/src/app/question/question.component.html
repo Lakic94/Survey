@@ -1,50 +1,104 @@
-<div fxLayout="row" fxLayoutAlign="center center">
+<div fxLayoutAlign="space-around center">
         <div *ngIf="form">
 
 
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()"  fxLayout="column" fxLayoutGap="30px">
                         <div *ngFor="let question of questions">
-                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
+
+
 
                                 <div [ngSwitch]="question.questionType">
 
 
-                                        <mat-card *ngSwitchCase="'Input'">
-                                                <input matInput [formControlName]="question.title" [id]="question.title"
-                                                        [type]="question.questionType">
+                                        <mat-card *ngSwitchCase="'Input'" fxFlex="200">
+                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
+                                                <mat-card-content>
+
+
+
+                                                        <mat-form-field>
+                                                                <input matInput [formControlName]="question.title"
+                                                                        [id]="question.title"
+                                                                        [type]="question.questionType">
+
+                                                        </mat-form-field>
+                                                </mat-card-content>
                                         </mat-card>
 
-                                        <mat-select [id]="question.title" *ngSwitchCase="'Select'"
-                                                [formControlName]="question.title">
-                                                <mat-option *ngFor="let opt of question.options" [value]="opt">{{opt}}
-                                                </mat-option>
-                                        </mat-select>
+
+                                        <mat-card *ngSwitchCase="'Select'">
+                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
+                                                <mat-card-content>
+                                                        <mat-form-field>
+                                                                <mat-select [id]="question.title"
+                                                                        [formControlName]="question.title">
+                                                                        <mat-option *ngFor="let opt of question.options"
+                                                                                [value]="opt">{{opt}}
+                                                                        </mat-option>
+                                                                </mat-select>
+                                                        </mat-form-field>
+                                                </mat-card-content>
+
+                                        </mat-card>
+
+                                        <mat-card *ngSwitchCase="'Radio'">
+                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
+                                                <mat-card-content>
+                                                        <mat-form-field>
+                                                                <mat-radio-group [formControlName]="question.title"
+                                                                        [id]="question.title">
+                                                                        <mat-radio-button
+                                                                                *ngFor="let opt of question.options"
+                                                                                [value]="opt">
+                                                                                {{opt}}
+                                                                        </mat-radio-button>
+                                                                </mat-radio-group>
+
+                                                        </mat-form-field>
+                                                </mat-card-content>
+                                        </mat-card>
 
 
 
-                                        <mat-radio-group *ngSwitchCase="'Radio'" [formControlName]="question.title"
-                                                [id]="question.title">
-                                                <mat-radio-button *ngFor="let opt of question.options" [value]="opt">
-                                                        {{opt}}
-                                                </mat-radio-button>
-                                        </mat-radio-group>
 
-                                        <section *ngSwitchCase="'Checkbox'"  >
-                                                <label [formArrayName]="question.title" *ngFor="let opt of question.options; let i = index;" >
-                                                            <mat-checkbox [formControlName]="i" [value]="opt">
-                                                                {{opt}}
-                                                            </mat-checkbox>   
-                                                </label>
 
-                                                
-                                                
+
+
+                                        <mat-card *ngSwitchCase="'Checkbox'">
+                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
+                                                <mat-card-content>
+                                                       
+
+                                                                <label [formArrayName]="question.title"
+                                                                        *ngFor="let opt of question.options; let i = index;">
+                                                                        <mat-checkbox [formControlName]="i"
+                                                                                [value]="opt">
+                                                                                {{opt}}
+                                                                        </mat-checkbox>
+                                                                </label>
+
+
+
+
+
+
+
+
+
+
                                                         
-                                                        
-                                                        
-                                                        
+                                                </mat-card-content>
 
-                                                
-                                        </section>
+                                        </mat-card>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -55,12 +109,15 @@
 
                         </div>
 
+                        <button class="dugme" mat-flat-button (click)="openDialog()">Dodaj</button>
+
                         <div>
                                 <button type="submit">Save</button>
+
                         </div>
                 </form>
 
-                <button class="dugme" mat-flat-button (click)="openDialog()">Dodaj</button>
+
 
         </div>
 </div>

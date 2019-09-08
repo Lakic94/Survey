@@ -78,92 +78,53 @@ export class QuestionComponent implements OnInit {
 
   onSubmit() {
 
-    console.log(this.form.value)
 
-    let form = this.form.value
+    let formValues = this.form.value
 
-    let arr = this.survey.questions
+    let arrOfQuestions = this.survey.questions
 
 
-    for(let i = 0;i < arr.length;i++){
+    for (let i = 0; i < arrOfQuestions.length; i++) {
 
-      for(let p in form){
+      for (let fValue in formValues) {
 
-        if(Array.isArray(form[p])){
-          console.log(form[p])
+        if (arrOfQuestions[i].title === fValue) {
 
-          let values = (Object.values(form[p]))
+          if (Array.isArray(formValues[fValue])) {
 
-          for(let j = 0;j<values.length;j++){
-            if(values[j] === true){
+            let values = (Object.values(formValues[fValue]))
 
-              console.log(values[j])
-              
-              arr[i].answers.push(arr[i].options[j])
-              
-              delete form[p]
+            let checkboxAnswers = []
 
-              
+            for (let j = 0; j < values.length; j++) {
+              if (values[j] === true) {
+                console.log(values[j])
 
+                checkboxAnswers.push(arrOfQuestions[i].options[j])
+    
+              }
               
             }
+
+            arrOfQuestions[i].answers.push(checkboxAnswers)
           }
-          
 
-          // for(let r in form[p]){
+          else {
 
-          //   if(form[p][r] === true){
-              
-          //     console.log(form[p][r])
-              
-          //   }
+            arrOfQuestions[i].answers.push(formValues[fValue])
+            delete formValues[fValue]
+            break;
 
-          // }
-
+          }
         }
 
-        if(arr[i].title === p){
+      } 
 
-          arr[i].answers.push(form[p])
-          delete form[p]
-          break;
-        }
-        
-      }
+      delete this.survey._id
 
+      //this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
 
     }
 
-
-    // for (let i = 0; i < arr.length; i++) {
-    //   const questionElement = arr[i].title;
-
-    //   for (let n = 0; n < Object.keys(form).length; n++) {
-    //     const formElement = Object.keys(form)[n];
-
-    //     if (Array.isArray(formElement)) {
-    //       for (let j = 0; j < formElement.length; j++) {
-    //         const element = formElement[j];
-    //         if (element) {
-    //           console.log(element);
-    //         }
-    //       }
-    //     }
-
-    //     if (questionElement === formElement) {
-
-
-    //     }
-    //   }
-    // }
-
-
-    delete this.survey._id
-
-    // console.log(this.survey.questions)
-
-    this.sharedService.update("Survey", this._rowId,this.survey).subscribe()
-
   }
-
 }
