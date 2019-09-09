@@ -44,7 +44,7 @@ export class QuestionComponent implements OnInit {
   openDialog() {
 
     this.matDialog.open(DialogComponent, {
-      width: '50%',
+      width: '30%',
       height: '70%',
       data: this._rowId
     })
@@ -98,7 +98,8 @@ export class QuestionComponent implements OnInit {
 
             for (let j = 0; j < values.length; j++) {
               if (values[j] === true) {
-                console.log(values[j])
+                console.log(values[j]+""+j)
+                console.log(arrOfQuestions[i].options[j])
 
                 checkboxAnswers.push(arrOfQuestions[i].options[j])
     
@@ -122,7 +123,7 @@ export class QuestionComponent implements OnInit {
 
       delete this.survey._id
 
-      //this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
+      this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
 
     }
 

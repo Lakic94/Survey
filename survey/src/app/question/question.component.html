@@ -1,8 +1,8 @@
-<div fxLayoutAlign="space-around center">
-        <div *ngIf="form">
+<div fxLayoutAlign="space-around stretch" class="container">
+        <div *ngIf="form" fxFlex=40>
 
 
-                <form [formGroup]="form" (ngSubmit)="onSubmit()"  fxLayout="column" fxLayoutGap="30px">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()"  fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="space-around stretch">
                         <div *ngFor="let question of questions">
 
 
@@ -10,9 +10,10 @@
                                 <div [ngSwitch]="question.questionType">
 
 
-                                        <mat-card *ngSwitchCase="'Input'" fxFlex="200">
-                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
-                                                <mat-card-content>
+                                        <mat-card *ngSwitchCase="'Input'"       >
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
+                                                <mat-divider></mat-divider>
+                                                <mat-card-content >
 
 
 
@@ -27,7 +28,8 @@
 
 
                                         <mat-card *ngSwitchCase="'Select'">
-                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
+                                                <mat-divider></mat-divider>
                                                 <mat-card-content>
                                                         <mat-form-field>
                                                                 <mat-select [id]="question.title"
@@ -42,11 +44,12 @@
                                         </mat-card>
 
                                         <mat-card *ngSwitchCase="'Radio'">
-                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
+                                                <mat-divider></mat-divider>
                                                 <mat-card-content>
-                                                        <mat-form-field>
-                                                                <mat-radio-group [formControlName]="question.title"
-                                                                        [id]="question.title">
+                                                        
+                                                                <mat-radio-group [formControlName]="question.title" 
+                                                                        [id]="question.title" layout="row">
                                                                         <mat-radio-button
                                                                                 *ngFor="let opt of question.options"
                                                                                 [value]="opt">
@@ -54,7 +57,7 @@
                                                                         </mat-radio-button>
                                                                 </mat-radio-group>
 
-                                                        </mat-form-field>
+                                                        
                                                 </mat-card-content>
                                         </mat-card>
 
@@ -65,8 +68,9 @@
 
 
                                         <mat-card *ngSwitchCase="'Checkbox'">
-                                                <mat-label [attr.for]="question.title">{{question.title}}</mat-label>
-                                                <mat-card-content>
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
+                                                <mat-divider></mat-divider>
+                                                <mat-card-content fxLayout="column">
                                                        
 
                                                                 <label [formArrayName]="question.title"

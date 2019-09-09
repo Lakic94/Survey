@@ -1,5 +1,5 @@
 .example-card {
-    max-width: 100%;
+    width: 50%;
 }
 
 .example-large-box {
@@ -14,8 +14,33 @@
 .example-large-box {
     height: 300px;
     width: 300px;
+}
+
+.row {
+    width: 80%;
+}
+
+.container {
+    width: 100%;
+}
+
+.mat-card{
+    height: 100%;
+}
+
+.wrapper{
+    flex-flow: row;
+}
+
+mat-form-field {
+    width: 80%;
   }
 
-  .row{
-      width:80%;
+  mat-radio-button{
+      margin: 20px 10px
+  }
+
+  md-checkbox ._md-label
+  {
+  margin-left: 20px;
   }
