@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { InputQuestionComponent } from './input-question/input-question.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { HomeService } from '../home/home.service';
@@ -14,6 +14,8 @@ import { formModel } from '../shared/form.model';
 export class QuestionComponent implements OnInit {
 
 
+  matDialogRef: MatDialogRef<DialogComponent>;
+
   private _rowId: any;
 
   survey: formModel;
@@ -25,7 +27,8 @@ export class QuestionComponent implements OnInit {
   constructor(
     public matDialog: MatDialog,
     private homeService: HomeService,
-    private sharedService: FormsService
+    private sharedService: FormsService,
+    private _formBuilder: FormBuilder,
   ) {
 
     this.homeService.rowIdChanged.subscribe(result => {
@@ -36,6 +39,7 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form = this._formBuilder.group({})
     this.getQuestions();
 
 
@@ -43,11 +47,17 @@ export class QuestionComponent implements OnInit {
 
   openDialog() {
 
-    this.matDialog.open(DialogComponent, {
+     this.matDialog.open(DialogComponent, {
       width: '30%',
       height: '70%',
       data: this._rowId
     })
+
+  //   this.matDialogRef.afterClosed().subscribe(a=>{
+  //    this.getQuestions()
+  //  })
+
+    
 
 
   }
@@ -60,6 +70,7 @@ export class QuestionComponent implements OnInit {
         return;
       }
       else {
+        
         for (let i of e.questions) {
           this.questions.push(i)
         }
@@ -89,8 +100,10 @@ export class QuestionComponent implements OnInit {
       for (let fValue in formValues) {
 
         if (arrOfQuestions[i].title === fValue) {
+          console.log(arrOfQuestions[i].title + ' '+ fValue)
 
           if (Array.isArray(formValues[fValue])) {
+            console.log("usao u niz")
 
             let values = (Object.values(formValues[fValue]))
 
@@ -107,12 +120,17 @@ export class QuestionComponent implements OnInit {
               
             }
 
+            console.log(checkboxAnswers)
+
             arrOfQuestions[i].answers.push(checkboxAnswers)
           }
 
           else {
 
-            arrOfQuestions[i].answers.push(formValues[fValue])
+
+            console.log(formValues[fValue])
+            this.survey.questions[i].answers.push(formValues[fValue])
+            console.log(arrOfQuestions[i].answers)
             delete formValues[fValue]
             break;
 
@@ -121,9 +139,12 @@ export class QuestionComponent implements OnInit {
 
       } 
 
+      console.log(arrOfQuestions)
+
       delete this.survey._id
 
       this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
+
 
     }
 

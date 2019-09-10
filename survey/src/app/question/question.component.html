@@ -12,7 +12,6 @@
 
                                         <mat-card *ngSwitchCase="'Input'"       >
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
-                                                <mat-divider></mat-divider>
                                                 <mat-card-content >
 
 
@@ -29,7 +28,6 @@
 
                                         <mat-card *ngSwitchCase="'Select'">
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
-                                                <mat-divider></mat-divider>
                                                 <mat-card-content>
                                                         <mat-form-field>
                                                                 <mat-select [id]="question.title"
@@ -45,7 +43,6 @@
 
                                         <mat-card *ngSwitchCase="'Radio'">
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
-                                                <mat-divider></mat-divider>
                                                 <mat-card-content>
                                                         
                                                                 <mat-radio-group [formControlName]="question.title" 
@@ -69,7 +66,6 @@
 
                                         <mat-card *ngSwitchCase="'Checkbox'">
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
-                                                <mat-divider></mat-divider>
                                                 <mat-card-content fxLayout="column">
                                                        
 
