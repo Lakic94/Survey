@@ -47,15 +47,15 @@ export class QuestionComponent implements OnInit {
 
   openDialog() {
 
-     this.matDialog.open(DialogComponent, {
+     this.matDialogRef = this.matDialog.open(DialogComponent, {
       width: '30%',
       height: '70%',
       data: this._rowId
     })
 
-  //   this.matDialogRef.afterClosed().subscribe(a=>{
-  //    this.getQuestions()
-  //  })
+    this.matDialogRef.afterClosed().subscribe(a=>{
+     this.getQuestions()
+   })
 
     
 
@@ -63,6 +63,8 @@ export class QuestionComponent implements OnInit {
   }
 
   getQuestions() {
+    this.questions = []
+    this.form.reset()
     return this.sharedService.getById('Survey', this._rowId).subscribe(e => {
       this.survey = e;
       console.log(this.survey)
@@ -103,7 +105,7 @@ export class QuestionComponent implements OnInit {
           console.log(arrOfQuestions[i].title + ' '+ fValue)
 
           if (Array.isArray(formValues[fValue])) {
-            console.log("usao u niz")
+           
 
             let values = (Object.values(formValues[fValue]))
 
@@ -111,9 +113,8 @@ export class QuestionComponent implements OnInit {
 
             for (let j = 0; j < values.length; j++) {
               if (values[j] === true) {
-                console.log(values[j]+""+j)
+                
                 console.log(arrOfQuestions[i].options[j])
-
                 checkboxAnswers.push(arrOfQuestions[i].options[j])
     
               }
@@ -121,16 +122,14 @@ export class QuestionComponent implements OnInit {
             }
 
             console.log(checkboxAnswers)
-
-            arrOfQuestions[i].answers.push(checkboxAnswers)
+            this.survey.questions[i].answers.push(checkboxAnswers)
+            console.log(this.survey.questions[i].answers)
           }
 
           else {
 
 
-            console.log(formValues[fValue])
             this.survey.questions[i].answers.push(formValues[fValue])
-            console.log(arrOfQuestions[i].answers)
             delete formValues[fValue]
             break;
 
@@ -139,14 +138,16 @@ export class QuestionComponent implements OnInit {
 
       } 
 
-      console.log(arrOfQuestions)
-
-      delete this.survey._id
-
-      this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
+     
 
 
     }
+
+    console.log(arrOfQuestions)
+
+    delete this.survey._id
+
+    this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
 
   }
 }

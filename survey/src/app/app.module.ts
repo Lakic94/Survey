@@ -41,7 +41,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     DialogComponent,
     AddSurveyDialogComponent
   ],
-  providers: [FormsService,HomeService ,{ provide: MAT_DIALOG_DATA, useValue: [] }],
+  providers: [FormsService,HomeService,{ provide: MAT_DIALOG_DATA, useValue: [] }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
