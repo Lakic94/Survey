@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +27,13 @@ export class HomeService {
       if(element.questionType === 'Checkbox'){
         group[element.title] = new FormArray([])
         element.options.map(i => {
-          const control = new FormControl();
+          const control = new FormControl(null, Validators.required);
           (group[element.title] as FormArray).push(control)
           
         })
       }
       else{
-        group[element.title] = new FormControl('')
+        group[element.title] = new FormControl('', Validators.required)
       }
       
     });

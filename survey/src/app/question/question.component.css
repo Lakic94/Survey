@@ -49,4 +49,8 @@ mat-form-field {
   .add-button{
     background-color:lightgrey; 
   }
-
+.title{
+    height:15%;
+    background-color: #e2dfdf;
+    margin-bottom: 10px
+}

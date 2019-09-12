@@ -13,6 +13,8 @@ import { formModel } from '../shared/form.model';
 })
 export class QuestionComponent implements OnInit {
 
+  
+
 
   matDialogRef: MatDialogRef<DialogComponent>;
 
@@ -23,6 +25,10 @@ export class QuestionComponent implements OnInit {
   form: FormGroup;
 
   questions: any = [];
+
+  title:string;
+
+  desc:string;
 
   constructor(
     public matDialog: MatDialog,
@@ -80,6 +86,8 @@ export class QuestionComponent implements OnInit {
       }
 
       this.form = this.homeService.toFormGroup(this.questions);
+      this.title = e.title;
+      this.desc = e.description;
 
       console.log(this.form)
 
@@ -130,7 +138,7 @@ export class QuestionComponent implements OnInit {
 
 
             this.survey.questions[i].answers.push(formValues[fValue])
-            delete formValues[fValue]
+            console.log(formValues)
             break;
 
           }
