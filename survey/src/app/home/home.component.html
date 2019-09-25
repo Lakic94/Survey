@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center center" >
+<div fxLayout="row" fxLayoutAlign="center stretch" fxFlexFill >
     <div fxFlex="50">
 
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -9,7 +9,7 @@
             </ng-container>
             
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row (click)="clickOnRow(row.id)" [routerLink]="['/create'+row.id]"  *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+            <mat-row (click)="clickOnRow(row.id)" [routerLink]="['/create/'+row.id]"  *matRowDef="let row; columns: displayedColumns;" ></mat-row>
         </mat-table>
         <div>
             <button class="button" mat-fab color="white" (click)="openDialog()"><i class="material-icons">add</i></button>

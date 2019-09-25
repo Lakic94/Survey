@@ -1,14 +1,15 @@
 <form [formGroup]="questionFormGroup" (ngSubmit)="onSubmit(questionFormGroup)">
 
-    <mat-horizontal-stepper #stepper>
+    <mat-horizontal-stepper   #stepper>
 
         <mat-step [stepControl]="questionFormGroup">
             <ng-template matStepLabel>Question Title</ng-template>
             <mat-form-field>
                 <input matInput placeholder="Question Title" formControlName="title" required>
             </mat-form-field>
+            <!-- <div *ngIf="questionFormGroup.get('title').invalid && questionFormGroup.get('title').touched" class="error">Ime  neophodno</div> -->
             <div>
-                <button mat-button matStepperNext type="button">Next</button>
+                <button mat-button matStepperNext type="button" >Next</button>
             </div>
         </mat-step>
 
@@ -42,9 +43,13 @@
                         <button mat-button color="primary" (click)="removeItem(i)" matTooltipPosition="right">
                             Remove
                         </button>
+                        
+                        
                     </mat-form-field>
+                    
                 </div>
-            </div>
+            </div>    
+            
             <button mat-raised-button color="primary" (click)="addItem()" mat-mini-fab type="button">
                 <mat-icon>add</mat-icon>
             </button>
@@ -59,7 +64,7 @@
             You are now done.
             <div>
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-flat-button type="submit" color="primary" >Submit</button>
+                <button mat-flat-button type="submit" color="primary" [disabled]="!questionFormGroup.valid">Submit</button>
                 <button mat-flat-button mat-dialog-close >Close</button>
                 
             </div>

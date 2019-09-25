@@ -4,7 +4,7 @@ export class Question {
     title:string;
     questionType:string;
     options?:[];
-    answers:any[];
+    answers?:any[];
 
     constructor(model:any){
         this.title = model.title;

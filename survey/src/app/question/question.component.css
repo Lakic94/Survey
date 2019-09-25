@@ -54,3 +54,28 @@ mat-form-field {
     background-color: #e2dfdf;
     margin-bottom: 10px
 }
+
+.error{
+    color: red
+}
+.delete:hover{
+    cursor: pointer;
+
+}
+
+.delete{
+    margin-left: 10px;
+
+}
+
+#test{
+    width: 100%;
+}
+
+#align-delete{
+    width: 100%;
+}
+
+.delete-card-content{
+    
+}

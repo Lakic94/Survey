@@ -1,6 +1,18 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators, ValidatorFn } from '@angular/forms';
+
+export function minSelected(min = 1) {
+  const validator: ValidatorFn = (formArray: FormArray) => {
+    const totalSelected = formArray.controls
+      .map(control => control.value)
+      .reduce((prev, next) => next ? prev + next : prev, 0);
+
+    return totalSelected >= min ? null : { required: true };
+  };
+
+  return validator;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +37,10 @@ export class HomeService {
     questions.forEach(element => {
 
       if(element.questionType === 'Checkbox'){
-        group[element.title] = new FormArray([])
+        group[element.title] = new FormArray([],minSelected(1))
         element.options.map(i => {
-          const control = new FormControl(null, Validators.required);
-          (group[element.title] as FormArray).push(control)
+           i = new FormControl(null);
+          (group[element.title] as FormArray).push(i)
           
         })
       }
@@ -41,4 +53,6 @@ export class HomeService {
     return new FormGroup(group);
 
   }
+
+  
 }

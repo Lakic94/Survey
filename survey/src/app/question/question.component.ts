@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { InputQuestionComponent } from './input-question/input-question.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { HomeService } from '../home/home.service';
 import { FormsService } from '../shared/forms.service';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { formModel } from '../shared/form.model';
+import { ActivatedRoute } from '@angular/router';
+import { TokenService } from '../shared/token.service';
+
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -30,11 +32,22 @@ export class QuestionComponent implements OnInit {
 
   desc:string;
 
+  currentSurvey: any;
+
+  answer = {
+    userId: '',
+    answer: []
+  }
+
+  
+
   constructor(
     public matDialog: MatDialog,
     private homeService: HomeService,
     private sharedService: FormsService,
     private _formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private tokenService:TokenService
   ) {
 
     this.homeService.rowIdChanged.subscribe(result => {
@@ -45,6 +58,7 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._rowId = this.route.snapshot.paramMap.get('id');
     this.form = this._formBuilder.group({})
     this.getQuestions();
 
@@ -86,9 +100,8 @@ export class QuestionComponent implements OnInit {
       }
 
       this.form = this.homeService.toFormGroup(this.questions);
-      this.title = e.title;
-      this.desc = e.description;
-
+ 
+      console.log(this.questions)
       console.log(this.form)
 
     })
@@ -98,7 +111,6 @@ export class QuestionComponent implements OnInit {
   }
 
   onSubmit() {
-
 
     let formValues = this.form.value
 
@@ -111,6 +123,8 @@ export class QuestionComponent implements OnInit {
 
         if (arrOfQuestions[i].title === fValue) {
           console.log(arrOfQuestions[i].title + ' '+ fValue)
+
+          const answerObj = Object.create(this.answer)
 
           if (Array.isArray(formValues[fValue])) {
            
@@ -129,15 +143,21 @@ export class QuestionComponent implements OnInit {
               
             }
 
+            console.log(this.tokenService.getId())
+
+            answerObj.userId = this.tokenService.getId();
+            answerObj.answer = checkboxAnswers;
+
             console.log(checkboxAnswers)
-            this.survey.questions[i].answers.push(checkboxAnswers)
+            this.survey.questions[i].answers.push(answerObj)
             console.log(this.survey.questions[i].answers)
           }
 
           else {
 
-
-            this.survey.questions[i].answers.push(formValues[fValue])
+            answerObj.userId = this.tokenService.getId();
+            answerObj.answer = formValues[fValue]
+            this.survey.questions[i].answers.push(answerObj)
             console.log(formValues)
             break;
 
@@ -157,5 +177,21 @@ export class QuestionComponent implements OnInit {
 
     this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
 
+  }
+
+  validateControl(controlName){
+    if(this.form.controls[controlName].invalid && this.form.controls[controlName].touched){
+      return true;
+    }
+    else
+      false;
+
+  }
+
+  emitId(event){
+    this.survey.questions.splice(event,1)
+    delete this.survey._id
+    this.sharedService.update("Survey", this._rowId, this.survey
+    ).subscribe(e => this.getQuestions())
   }
 }

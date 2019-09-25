@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
+import { OAuthModule } from 'angular-oauth2-oidc';
+
 
 
 import { AppComponent } from './app.component';
@@ -16,6 +18,13 @@ import { FormsService } from './shared/forms.service';
 import { AddSurveyDialogComponent } from './add-survey-dialog/add-survey-dialog.component';
 import { HomeService } from './home/home.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AppInitService } from './shared/app-init.service';
+
+export function initializeApp1(appInitService: AppInitService) {
+  return (): Promise<any> => { 
+    return appInitService.Init();
+  }
+}
 
 
 @NgModule({
@@ -34,14 +43,25 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     QuestionModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: ['http://localhost:8000/api'],
+          sendAccessToken: true
+      }
+  })
   ],
 
   entryComponents: [
     DialogComponent,
     AddSurveyDialogComponent
   ],
-  providers: [FormsService,HomeService,{ provide: MAT_DIALOG_DATA, useValue: [] }],
+  providers: [FormsService,HomeService,{ provide: MAT_DIALOG_DATA, useValue: [] },AppInitService, {
+  provide: APP_INITIALIZER,
+  useFactory: initializeApp1,
+  multi: true,
+  deps: [AppInitService]
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

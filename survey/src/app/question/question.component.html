@@ -1,20 +1,20 @@
 <div fxLayoutAlign="space-around stretch" class="container">
-        <div *ngIf="form" fxFlex=40>
+        <div *ngIf="form" fxFlex=35>
 
-                <mat-card class="title">
-                        <mat-card-title>{{title}}</mat-card-title>
-                        <mat-card-subtitle>{{desc}}</mat-card-subtitle>
-                </mat-card>
+                <!-- <mat-card class="title">
+                        <mat-card-title>{{survey.title}}</mat-card-title>
+                        <mat-card-subtitle>{{survey.description}}</mat-card-subtitle>
+                </mat-card> -->
 
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit()"  fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="space-around stretch">
-                        <div *ngFor="let question of questions">
+                        <div fxLayout="row" id="test" fxLayoutAlign="space-between stretch" *ngFor="let question of questions; let i = index">
 
 
-                                <div [ngSwitch]="question.questionType">
+                                <div [ngSwitch]="question.questionType" id="align-delete">
 
 
-                                        <mat-card *ngSwitchCase="'Input'"       >
+                                        <mat-card *ngSwitchCase="'Input'" fxFlex="90"  >
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
                                                 <mat-card-content >
 
@@ -25,11 +25,13 @@
                                                                         [type]="question.questionType">
 
                                                         </mat-form-field>
+                                                                <div *ngIf="validateControl(question.title)" class="error">Polje ne moze biti prazno</div>
+
                                                 </mat-card-content>
                                         </mat-card>
 
 
-                                        <mat-card *ngSwitchCase="'Select'">
+                                        <mat-card *ngSwitchCase="'Select'" fxFlex="90">
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
                                                 <mat-card-content>
                                                         <mat-form-field>
@@ -39,12 +41,14 @@
                                                                                 [value]="opt">{{opt}}
                                                                         </mat-option>
                                                                 </mat-select>
+                                                                <div *ngIf="validateControl(question.title)" class="error">Polje ne moze biti prazno</div>
+                                                                
                                                         </mat-form-field>
                                                 </mat-card-content>
 
                                         </mat-card>
 
-                                        <mat-card *ngSwitchCase="'Radio'">
+                                        <mat-card *ngSwitchCase="'Radio'" fxFlex="90">
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
                                                 <mat-card-content>
                                                         
@@ -55,7 +59,9 @@
                                                                                 [value]="opt">
                                                                                 {{opt}}
                                                                         </mat-radio-button>
+                                                                        
                                                                 </mat-radio-group>
+                                                                <div *ngIf="validateControl(question.title)" class="error">Polje ne moze biti prazno</div>
 
                                                         
                                                 </mat-card-content>
@@ -63,7 +69,7 @@
 
 
 
-                                        <mat-card *ngSwitchCase="'Checkbox'">
+                                        <mat-card *ngSwitchCase="'Checkbox'" fxFlex="90">
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
                                                 <mat-card-content fxLayout="column">
                                                        
@@ -74,10 +80,24 @@
                                                                                 [value]="opt">
                                                                                 {{opt}}
                                                                         </mat-checkbox>
+                                                                        
+                                                                        
                                                                 </label>
+                                                                <div *ngIf="validateControl(question.title)" class="error">Morate odabrati minimum jednu opciju</div>
 
                                                         
                                                 </mat-card-content>
+                                               
+
+                                        </mat-card>
+
+                                        <mat-card fxLayout="row" fxLayoutAlign="space-evenly stretch" fxFlex="10" fxLayoutGap="30px" (click)="emitId(i)" class="delete">
+                                                <mat-card-content fxLayout="column" class="delete-card-content">
+                                                                <i class="material-icons">
+                                                                                delete
+                                                                                </i>
+                                                </mat-card-content>
+                                                
 
                                         </mat-card>
 
@@ -88,9 +108,11 @@
 
                         <button class="add-button" type="button" mat-flat-button (click)="openDialog()">Dodaj</button>
 
-                        <div>
-                                <button mat-raised-button type="submit">Save</button>
+                        <!-- <div *ngIf="!form.valid">At least one order must be selected</div> -->
 
+                        <div>
+                                <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
+                                
                         </div>
                 </form>
 
