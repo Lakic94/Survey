@@ -1,11 +1,13 @@
 <mat-toolbar color="primary">
-    <div fxLayout="row" fxLayoutAlign=" space-between center">
+    <div fxLayout="row" fxLayoutAlign=" space-between end">
             <button mat-flat-button routerLink="/">Home</button>
             
-            <button class="btn btn-default" (click)="logoff()">
-                    logout
-                </button>
+            
     </div>
+
+    <button id="right" mat-flat-button class="btn btn-default" (click)="logoff()">
+        Logout
+    </button>
 </mat-toolbar>
 
 
