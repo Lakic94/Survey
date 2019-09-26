@@ -177,6 +177,8 @@ export class QuestionComponent implements OnInit {
 
     this.sharedService.update("Survey", this._rowId, this.survey).subscribe()
 
+    this.form.reset()
+
   }
 
   validateControl(controlName){
