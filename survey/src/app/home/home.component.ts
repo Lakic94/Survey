@@ -18,10 +18,9 @@ import { TokenService } from '../shared/token.service';
 
 
 export class HomeComponent implements OnInit {
+  data = [];
 
-  public data = [];
-
-  displayedColumns: string[] = ['Title'];
+  displayedColumns: string[] = ['Title','actions'];
   dataSource = new MatTableDataSource<any>(this.data);
   sub: any;
   id: any;
@@ -51,31 +50,29 @@ export class HomeComponent implements OnInit {
 
   openDialog() {
     this.matDialogRef = this.matDialog.open(AddSurveyDialogComponent, {
-      width: '35%',
-      height: '60%'
-
     })
+    
     this.matDialogRef.afterClosed().subscribe(a => {
       this.loadData()
     })
   }
 
-
-
   clickOnRow(id) {
     this.homeService.emitRowIdChanged(id);
-    //this.router.navigateByUrl('/create/' + id);
+    this.router.navigateByUrl('/create/' + id);
   }
 
   loadData() {
-    
     this.sharedService.getByFilter('Survey', this.filter).subscribe(data => {
-
       this.dataSource = new MatTableDataSource(data)
       console.log(data)
-
-
     });
+  }
+
+
+
+  share(id){
+    this.router.navigateByUrl('/answer/'+id)
   }
 
 }

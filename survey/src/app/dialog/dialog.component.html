@@ -2,34 +2,34 @@
 
     <mat-horizontal-stepper   #stepper>
 
-        <mat-step [stepControl]="questionFormGroup">
+        <mat-step [stepControl]="questionFormGroup" fxLayout="column">
             <ng-template matStepLabel>Question Title</ng-template>
-            <mat-form-field>
-                <input matInput placeholder="Question Title" formControlName="title" required>
+            <mat-form-field id="title" fxFlex="100">
+                <textarea  matInput placeholder="Question Title" formControlName="title" required></textarea>
             </mat-form-field>
             <!-- <div *ngIf="questionFormGroup.get('title').invalid && questionFormGroup.get('title').touched" class="error">Ime  neophodno</div> -->
-            <div>
-                <button mat-button matStepperNext type="button" >Next</button>
+            <div mat-dialog-actions align="end">
+                <button mat-button matStepperNext type="button">Next</button>
             </div>
         </mat-step>
 
         <mat-step [stepControl]="questionFormGroup">
             <ng-template matStepLabel>Type of question</ng-template>
             <mat-form-field>
-                <mat-select (selectionChange)="selectedTyp($event.value)" matInput placeholder="Question Type"
+                <mat-select (selectionChange)="selectedType($event.value)" matInput placeholder="Question Type"
                     formControlName="questionType" required>
                     <mat-option *ngFor="let item of questionTypes" [value]='item'>
                         {{item}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <div>
+            <div mat-dialog-actions align="end">
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext type="button">Next</button>
             </div>
         </mat-step>
 
-        <mat-step *ngIf="selectedType" [stepControl]="questionFormGroup">
+        <mat-step *ngIf="typeOfQuestion" [stepControl]="questionFormGroup">
             <ng-template matStepLabel>Question Options</ng-template>
             <div fxLayoutAlign="space-between center">
                 <h3>Options</h3>
@@ -40,12 +40,13 @@
                     <mat-form-field fxFlex="70">
                         <mat-label>Option {{ i+1 }} </mat-label>
                         <input fxFlex matInput [formControlName]="i">
-                        <button mat-button color="primary" (click)="removeItem(i)" matTooltipPosition="right">
-                            Remove
-                        </button>
+                        
                         
                         
                     </mat-form-field>
+                    <button mat-button color="primary" (click)="removeItem(i)">
+                        Remove
+                    </button>
                     
                 </div>
             </div>    
@@ -53,7 +54,7 @@
             <button mat-raised-button color="primary" (click)="addItem()" mat-mini-fab type="button">
                 <mat-icon>add</mat-icon>
             </button>
-            <div>
+            <div  mat-dialog-actions align="end">
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext type="button">Next</button>
             </div>
@@ -61,12 +62,9 @@
 
         <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            You are now done.
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
+            
+            <div mat-dialog-actions align="center">
                 <button mat-flat-button type="submit" color="primary" [disabled]="!questionFormGroup.valid">Submit</button>
-                <button mat-flat-button mat-dialog-close >Close</button>
-                
             </div>
         </mat-step>
 

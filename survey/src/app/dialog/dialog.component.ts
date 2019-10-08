@@ -5,8 +5,7 @@ import { FormsService } from '../shared/forms.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { formModel } from '../shared/form.model';
 import { Question } from '../shared/question.model';
-import { minSelected } from '../home/home.service';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 
 @Component({
@@ -15,24 +14,17 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./dialog.component.css']
 })
 export class DialogComponent implements OnInit {
-
-
   questionTypes = [
     'Input',
     'Radio',
     'Checkbox',
-    'Select'
+    'Select',
+    'Text'
   ]
-  
 
-  
-
-  form: formModel;
-
+  survey: formModel;
   res: any;
-
-  selectedType = false;
-
+  typeOfQuestion = false;
   questionFormGroup: FormGroup;
 
   constructor(
@@ -42,8 +34,9 @@ export class DialogComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private matDialogRef: MatDialog
   ) {
-    this.formsService.getById("Survey", this.data).subscribe(res => { this.form = res });
+    this.formsService.getById("Survey", this.data).subscribe(res => { this.survey = res });
   }
+
 
   ngOnInit() {
     this.questionFormGroup = this._formBuilder.group({
@@ -52,13 +45,8 @@ export class DialogComponent implements OnInit {
       options: this._formBuilder.array([
         this._formBuilder.control('')
       ])
-
     });
-
     this.questionTypeValidator();
-
-    
-
   }
 
   addItem() {
@@ -73,93 +61,64 @@ export class DialogComponent implements OnInit {
     this.optionsArray.removeAt(index);
   }
 
-  selectedTyp(event) {
-    if (event === 'Input') {
-      this.selectedType = false;
+  selectedType(event) {
+    if (event === 'Input' || event === 'Text') {
+      this.typeOfQuestion = false;
     }
-    else this.selectedType = true;
+    else this.typeOfQuestion = true;
   }
 
-  onSubmit(form:FormGroup) {
-
+  onSubmit(form: FormGroup) {
     this.addQuestion(form)
-
-
-    delete this.form._id;
-
-    if(this.questionFormGroup.valid){
-
-      this.formsService.update("Survey", this.data, this.form
+    delete this.survey._id;
+    if (this.questionFormGroup.valid) {
+      this.formsService.update("Survey", this.data, this.survey
       ).subscribe(e => console.log(e))
-
-
       this._snackBar.open("Added", "Close", {
         duration: 2000
       })
-      
       this.questionFormGroup.reset();
-      
+
     }
-    
-
-    
-      
     this.matDialogRef.closeAll()
-
-    console.log(this.questionFormGroup)
   }
 
-
-  addQuestion(form){
+  addQuestion(form) {
     let question = new Question(form.value)
-
-    if(form.controls.options.value  != ""){
+    if (form.controls.options.value != "") {
       let options = form.controls.options.value
       console.log(question)
       question.option(options);
     }
-
-    this.form.questions.push(question)
-
-
+    this.survey.questions.push(question)
   }
 
-  validateControl(controlName){
-    console.log(controlName)
-    if(this.questionFormGroup.controls[controlName].invalid && this.questionFormGroup.controls[controlName].touched){
+  validateControl(controlName) {
+    if (this.questionFormGroup.controls[controlName].invalid && this.questionFormGroup.controls[controlName].touched) {
       return true;
     }
     else
       false;
-
   }
 
   minLengthArray(min: number) {
-    return (c: AbstractControl): {[key: string]: any} => {
-        if (c.value.length >= min)
-            return null;
-
-        return { 'minLengthArray': {valid: false }};
+    return (c: AbstractControl): { [key: string]: any } => {
+      if (c.value.length >= min)
+        return null;
+      return { 'minLengthArray': { valid: false } };
     }
-}
+  }
 
-questionTypeValidator(){
-
-
-  this.questionFormGroup.get('questionType').valueChanges.subscribe(questionType=>{
-
-    if(questionType === "Input"){
-      this.questionFormGroup.get('options').setValidators(null)
-    }
-
-    else{
-      this.questionFormGroup.get('options').setValidators(this.minLengthArray(2))
-    }
-
-    this.questionFormGroup.get('options').updateValueAndValidity();
-  })
-}
-  
-
+  questionTypeValidator() {
+    this.questionFormGroup.get('questionType').valueChanges.subscribe(questionType => {
+      if (questionType === "Input" || questionType === "Text") {
+        this.questionFormGroup.get('options').setValidators(null)
+      }
+      else {
+        this.questionFormGroup.get('options').setValidators(this.minLengthArray(2))
+      }
+      this.questionFormGroup.get('options').updateValueAndValidity();
+    })
+  }
 }
 

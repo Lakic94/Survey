@@ -34,7 +34,6 @@ export class AppComponent {
 
   getClaims() {
     let data = this.name;
-    console.log(data);
     return data;
   }
 

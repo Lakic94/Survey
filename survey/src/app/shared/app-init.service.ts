@@ -10,19 +10,14 @@ export class AppInitService {
   constructor(private oauthService: OAuthService) { }
 
   Init() {
-
     return new Promise<void>((resolve, reject) => {
-      console.log("AppInitService.init() called");
       this.oauthService.configure(environment);
       this.oauthService.tokenValidationHandler = new JwksValidationHandler();
       this.oauthService.loadDiscoveryDocumentAndLogin();
       setTimeout(() => {
-        console.log('AppInitService Finished');
         resolve();
-    }, 1000);
-
+      }, 1000);
     });
   }
 
-  
 }

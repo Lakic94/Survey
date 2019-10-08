@@ -13,45 +13,32 @@ import { TokenService } from '../shared/token.service';
   styleUrls: ['./add-survey-dialog.component.css']
 })
 export class AddSurveyDialogComponent implements OnInit {
-
   titleForm: FormGroup;
-
-  
 
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: FormsService,
     private dialogRef: MatDialogRef<AddSurveyDialogComponent>,
     private tokenService: TokenService
-     ) {
-    
+  ) {
+
   }
+
 
   ngOnInit() {
     this.titleForm = this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['']
     })
 
   }
 
   saveSurvey() {
-
     let form = new formModel(this.titleForm.value);
-
-    
-    
     form.userId = this.tokenService.getClaims().sub;
-
-
-
     this.sharedService.add("Survey", form).subscribe(e => {
     });
-
     this.dialogRef.close()
 
   }
-
-  
-
 }

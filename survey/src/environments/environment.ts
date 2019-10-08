@@ -6,7 +6,7 @@ export const environment = {
   issuer: 'http://localhost:5000',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: 'http://localhost:4200/signin-oidc',
+  redirectUri: 'http://localhost:4200/',
 
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'ComData.Survey',

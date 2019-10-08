@@ -1,3 +1,5 @@
+import { Question } from './question.model'
+
 export class formModel{
     _id:number;
     title:string;
@@ -8,12 +10,7 @@ export class formModel{
     constructor(model:any){
         this.title = model.title;
         this.description = model.description;
-        this.questions = [];
-        
+        this.questions = [];  
     }
-    
-    
-
 }
 
-import { Question } from './question.model'

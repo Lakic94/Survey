@@ -19,6 +19,7 @@ import { AddSurveyDialogComponent } from './add-survey-dialog/add-survey-dialog.
 import { HomeService } from './home/home.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppInitService } from './shared/app-init.service';
+import { AnswersComponent } from './answers/answers.component';
 
 export function initializeApp1(appInitService: AppInitService) {
   return (): Promise<any> => { 
@@ -32,7 +33,8 @@ export function initializeApp1(appInitService: AppInitService) {
     AppComponent,
     HomeComponent,
     DialogComponent,
-    AddSurveyDialogComponent
+    AddSurveyDialogComponent,
+    AnswersComponent
     
   ],
   imports: [
@@ -56,12 +58,17 @@ export function initializeApp1(appInitService: AppInitService) {
     DialogComponent,
     AddSurveyDialogComponent
   ],
-  providers: [FormsService,HomeService,{ provide: MAT_DIALOG_DATA, useValue: [] },AppInitService, {
-  provide: APP_INITIALIZER,
-  useFactory: initializeApp1,
-  multi: true,
-  deps: [AppInitService]
-}],
+  providers: [
+    FormsService,
+    HomeService,
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+    AppInitService, {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp1,
+      multi: true,
+      deps: [AppInitService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,38 +1,51 @@
 <div fxLayoutAlign="space-around stretch" class="container">
         <div *ngIf="form" fxFlex=35>
 
-                <!-- <mat-card class="title">
-                        <mat-card-title>{{survey.title}}</mat-card-title>
-                        <mat-card-subtitle>{{survey.description}}</mat-card-subtitle>
-                </mat-card> -->
-
-
-                <form [formGroup]="form" (ngSubmit)="onSubmit()"  fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="space-around stretch">
-                        <div fxLayout="row" id="test" fxLayoutAlign="space-between stretch" *ngFor="let question of questions; let i = index">
-
+                <form [formGroup]="form" fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="space-around stretch">
+                        <div fxLayout="row" id="test" fxLayoutAlign="space-between stretch"
+                                *ngFor="let question of questions; let i = index">
 
                                 <div [ngSwitch]="question.questionType" id="align-delete">
-
-
-                                        <mat-card *ngSwitchCase="'Input'" fxFlex="90"  >
+                                        <mat-card *ngSwitchCase="'Input'" fxFlex="100">
                                                 <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
-                                                <mat-card-content >
-
-
+                                                <hr>
+                                                <mat-card-content>
                                                         <mat-form-field>
                                                                 <input matInput [formControlName]="question.title"
                                                                         [id]="question.title"
                                                                         [type]="question.questionType">
-
                                                         </mat-form-field>
-                                                                <div *ngIf="validateControl(question.title)" class="error">Polje ne moze biti prazno</div>
+                                                        <div class="delete">
+                                                                <button mat-flat-button (click)="deleteQuestion(i)">
+                                                                        <mat-icon>delete</mat-icon>
+                                                                </button>
+                                                        </div>
 
                                                 </mat-card-content>
                                         </mat-card>
 
+                                        <mat-card *ngSwitchCase="'Text'" fxFlex="100">
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                </mat-card-title>
+                                                <hr>
+                                                <mat-card-content>
+                                                        <mat-form-field>
+                                                                <textarea matInput [formControlName]="question.title"
+                                                                        [id]="question.title"
+                                                                        [type]="question.questionType"></textarea>
+                                                                </mat-form-field>
+                                                                <div class="delete">
+                                                                        <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
+                                                                </div>
+                                                               
+                                                        </mat-card-content>
+                                                </mat-card>
 
-                                        <mat-card *ngSwitchCase="'Select'" fxFlex="90">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
+
+                                        <mat-card *ngSwitchCase="'Select'" fxFlex="100">
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                </mat-card-title>
+                                                <hr>
                                                 <mat-card-content>
                                                         <mat-form-field>
                                                                 <mat-select [id]="question.title"
@@ -41,81 +54,56 @@
                                                                                 [value]="opt">{{opt}}
                                                                         </mat-option>
                                                                 </mat-select>
-                                                                <div *ngIf="validateControl(question.title)" class="error">Polje ne moze biti prazno</div>
                                                                 
                                                         </mat-form-field>
+                                                        <div class="delete">
+                                                                <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
+                                                        </div>
                                                 </mat-card-content>
-
                                         </mat-card>
 
-                                        <mat-card *ngSwitchCase="'Radio'" fxFlex="90">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
+                                        <mat-card *ngSwitchCase="'Radio'" fxFlex="100">
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                </mat-card-title>
+                                                <hr>
                                                 <mat-card-content>
-                                                        
-                                                                <mat-radio-group [formControlName]="question.title" 
-                                                                        [id]="question.title" layout="row">
-                                                                        <mat-radio-button
-                                                                                *ngFor="let opt of question.options"
-                                                                                [value]="opt">
-                                                                                {{opt}}
-                                                                        </mat-radio-button>
-                                                                        
-                                                                </mat-radio-group>
-                                                                <div *ngIf="validateControl(question.title)" class="error">Polje ne moze biti prazno</div>
-
-                                                        
-                                                </mat-card-content>
-                                        </mat-card>
-
-
-
-                                        <mat-card *ngSwitchCase="'Checkbox'" fxFlex="90">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
-                                                <mat-card-content fxLayout="column">
+                                                        <mat-radio-group [formControlName]="question.title"
+                                                                [id]="question.title" layout="row">
+                                                                <mat-radio-button *ngFor="let opt of question.options"
+                                                                        [value]="opt">
+                                                                        {{opt}}
+                                                                </mat-radio-button>
+                                                        </mat-radio-group>
+                                                        <div class="delete">
+                                                                <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
+                                                        </div>
                                                        
+                                                </mat-card-content>
+                                        </mat-card>
 
-                                                                <label [formArrayName]="question.title"
-                                                                        *ngFor="let opt of question.options; let i = index;">
-                                                                        <mat-checkbox [formControlName]="i"
-                                                                                [value]="opt">
-                                                                                {{opt}}
-                                                                        </mat-checkbox>
-                                                                        
-                                                                        
-                                                                </label>
-                                                                <div *ngIf="validateControl(question.title)" class="error">Morate odabrati minimum jednu opciju</div>
-
+                                        <mat-card *ngSwitchCase="'Checkbox'" fxFlex="100">
+                                                <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                </mat-card-title>
+                                                <hr>
+                                                <mat-card-content fxLayout="column">
+                                                        <label [formArrayName]="question.title"
+                                                                *ngFor="let opt of question.options; let i = index;">
+                                                                <mat-checkbox [formControlName]="i" [value]="opt">
+                                                                        {{opt}}
+                                                                </mat-checkbox>
+                                                        </label>
+                                                        <div class="delete">
+                                                                <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
+                                                        </div>
                                                         
                                                 </mat-card-content>
-                                               
-
                                         </mat-card>
 
-                                        <mat-card fxLayout="row" fxLayoutAlign="space-evenly stretch" fxFlex="10" fxLayoutGap="30px" (click)="emitId(i)" class="delete">
-                                                <mat-card-content fxLayout="column" class="delete-card-content">
-                                                                <i class="material-icons">
-                                                                                delete
-                                                                                </i>
-                                                </mat-card-content>
-                                                
-
-                                        </mat-card>
-
-
+                                        
                                 </div>
-
                         </div>
 
-                        <button class="add-button" type="button" mat-flat-button (click)="openDialog()">Dodaj</button>
-
-                        <!-- <div *ngIf="!form.valid">At least one order must be selected</div> -->
-
-                        <div>
-                                <button mat-raised-button type="submit" [disabled]="!form.valid">Save</button>
-                                
-                        </div>
+                        <button class="add-button" type="button" mat-flat-button (click)="openDialog()" color="primary">Add question</button>
                 </form>
-
-
         </div>
 </div>

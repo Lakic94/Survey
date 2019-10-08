@@ -23,9 +23,7 @@ export class TokenService {
   }
 
   getId(){
-    const id = this.getClaims().sub
-
+    const id = this.getClaims().sub;
     return id;
-    
   }
 }

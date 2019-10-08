@@ -1,21 +1,20 @@
 
 export class Question {
+    title: string;
+    questionType: string;
+    options?: [];
+    answers?: any[];
 
-    title:string;
-    questionType:string;
-    options?:[];
-    answers?:any[];
-
-    constructor(model:any){
+    constructor(model: Question) {
         this.title = model.title;
         this.questionType = model.questionType;
-        if(model.options === ''){
+        if (model.options) {
             this.options = model.options;
         }
         this.answers = [];
     }
 
-    option(options:any ){
+    option(options: any) {
         this.options = options;
     }
 }

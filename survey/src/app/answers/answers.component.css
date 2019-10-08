@@ -1,0 +1,33 @@
+.container {
+    padding: 3%;
+}
+
+#elements {
+    padding: 5%;
+    width: 100%;
+}
+
+mat-radio-button {
+    margin: 10px 5px
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+#input {
+    width: 100%
+}
+
+#select-test {
+    width: 40%;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid rgba(24, 23, 23, 0.06);
+    margin-top: 10%;
+    padding: 0;
+}
