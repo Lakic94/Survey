@@ -60,6 +60,11 @@ hr {
     height: 1px;
     border: 0;
     border-top: 1px solid rgba(24, 23, 23, 0.06);
-    
     padding: 0;
+}
+
+.live {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
 }

@@ -78,7 +78,6 @@ export class DialogComponent implements OnInit {
         duration: 2000
       })
       this.questionFormGroup.reset();
-
     }
     this.matDialogRef.closeAll()
   }
@@ -111,7 +110,6 @@ export class DialogComponent implements OnInit {
   }
 
   questionTypeValidator() {
-
     this.questionFormGroup.get('questionType').valueChanges.subscribe(questionType => {
       if (questionType === "Input" || questionType === "Text") {
         this.questionFormGroup.get('options').setValidators(null)

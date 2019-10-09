@@ -35,3 +35,16 @@ hr {
 .id{
     color: red;
 }
+
+.error{
+    color: red;
+}
+
+.checkboxError{
+    color: red;
+    margin-top: 3%;
+}
+
+#save{
+    float: right;
+}

@@ -45,7 +45,6 @@ export class AnswersComponent implements OnInit {
 
   getQuestions() {
     this.questions = []
-    //this.form.reset()
     return this.sharedService.getById('Survey', this._rowId).subscribe(e => {
       this.survey = e;
       if (e.questions === undefined) {
@@ -101,26 +100,7 @@ export class AnswersComponent implements OnInit {
   }
 
   validateControl(controlName) {
-    // for (const element of this.questions) {
-    //   if (element.title == controlName) {
-    //     console.log("ima")
-    //     if (element.required) {
-    //       console.log(controlName)
-
-    //       return false;
-
-
-    //     }
-    //     else{
-    //       return true
-    //     }
-    //     break;
-
-    //   }
-    // }
-
     if (this.form.controls[controlName].invalid && this.form.controls[controlName].touched) {
-
       return true;
     }
     else

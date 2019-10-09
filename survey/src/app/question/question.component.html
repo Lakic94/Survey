@@ -13,7 +13,8 @@
                                                         <mat-form-field>
                                                                 <input matInput [formControlName]="question.title"
                                                                         [id]="question.title"
-                                                                        [type]="question.questionType">
+                                                                        [type]="question.questionType"
+                                                                        placeholder="Input question">
                                                         </mat-form-field>
                                                         <div class="delete">
                                                                 <button mat-flat-button (click)="deleteQuestion(i)">
@@ -32,7 +33,8 @@
                                                         <mat-form-field>
                                                                 <textarea matInput [formControlName]="question.title"
                                                                         [id]="question.title"
-                                                                        [type]="question.questionType"></textarea>
+                                                                        [type]="question.questionType"
+                                                                        placeholder="Text question"></textarea>
                                                                 </mat-form-field>
                                                                 <div class="delete">
                                                                         <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
@@ -107,3 +109,5 @@
                 </form>
         </div>
 </div>
+<button mat-flat-button color="primary" class="live" (click)="navigate()">LIVE</button>
+

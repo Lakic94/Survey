@@ -5,7 +5,7 @@ import { HomeService } from '../home/home.service';
 import { FormsService } from '../shared/forms.service';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { formModel } from '../shared/form.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../shared/token.service';
 
 @Component({
@@ -30,6 +30,7 @@ export class QuestionComponent implements OnInit {
     private homeService: HomeService,
     private sharedService: FormsService,
     private _formBuilder: FormBuilder,
+    private router:Router,
     private route: ActivatedRoute,
     private tokenService: TokenService
   ) {
@@ -80,5 +81,10 @@ export class QuestionComponent implements OnInit {
     console.log(event)
     this.sharedService.update("Survey", this._rowId, this.survey
     ).subscribe(e => this.getQuestions())
+  }
+
+  navigate(){
+    console.log(this._rowId)
+    this.router.navigate(['/answer/', this._rowId]);
   }
 }
