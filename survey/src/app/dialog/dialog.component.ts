@@ -86,7 +86,6 @@ export class DialogComponent implements OnInit {
     let question = new Question(form.value)
     if (form.controls.options.value != "") {
       let options = form.controls.options.value
-      console.log(question)
       question.option(options);
     }
     question.required = this.checked;

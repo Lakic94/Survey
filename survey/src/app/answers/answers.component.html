@@ -3,9 +3,10 @@
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="30px"
                         fxLayoutAlign="space-around stretch">
-
-                        <h1 class="mat-display-1">{{survey.title}}</h1>
-                        <h3 class="mat-h2">{{survey.description}}</h3>
+                        <div *ngIf="survey">
+                                <h1 class="mat-display-1">{{survey.title}}</h1>
+                                <h3 class="mat-h2">{{survey.description}}</h3>
+                        </div>
                         <mat-card>
                                 <div fxLayout="row" fxLayoutAlign="space-between stretch"
                                         *ngFor="let question of questions; let i = index">

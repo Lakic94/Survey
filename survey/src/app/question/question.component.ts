@@ -70,7 +70,6 @@ export class QuestionComponent implements OnInit {
         }
       }
       this.form = this.homeService.toFormGroup(this.questions);
-      console.log(this.questions)
     })
     
   }
@@ -78,13 +77,11 @@ export class QuestionComponent implements OnInit {
   deleteQuestion(event) {
     this.survey.questions.splice(event, 1)
     delete this.survey._id
-    console.log(event)
     this.sharedService.update("Survey", this._rowId, this.survey
     ).subscribe(e => this.getQuestions())
   }
 
   navigate(){
-    console.log(this._rowId)
     this.router.navigate(['/answer/', this._rowId]);
   }
 }

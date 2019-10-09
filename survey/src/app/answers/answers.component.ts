@@ -40,7 +40,6 @@ export class AnswersComponent implements OnInit {
     this._rowId = this.route.snapshot.paramMap.get('id');
     this.form = this._formBuilder.group({})
     this.getQuestions();
-    console.log(this.form)
   }
 
   getQuestions() {
@@ -56,7 +55,6 @@ export class AnswersComponent implements OnInit {
         }
       }
       this.form = this.homeService.toFormGroup(this.questions);
-      console.log(this.form)
     })
 
   }

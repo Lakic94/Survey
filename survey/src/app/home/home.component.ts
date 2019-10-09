@@ -65,7 +65,6 @@ export class HomeComponent implements OnInit {
   loadData() {
     this.sharedService.getByFilter('Survey', this.filter).subscribe(data => {
       this.dataSource = new MatTableDataSource(data)
-      console.log(data)
     });
   }
   

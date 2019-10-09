@@ -21,22 +21,8 @@ export class HomeService {
 
   toFormGroup(questions: any) {
     let group: any = {};
-    // questions.forEach(element => {
-    //   if (element.questionType === 'Checkbox') {
-    //     group[element.title] = new FormArray([], this.minSelected(1))
-    //     element.options.map(i => {
-    //       i = new FormControl(null);
-    //       (group[element.title] as FormArray).push(i)
-    //     })
-    //   }
-    //   else {
-    //     group[element.title] = new FormControl('', Validators.required)
-    //   }
-    // });
-
     questions.forEach(element => {
       if(element.required == true){
-        console.log("true", element.title)
         if (element.questionType === 'Checkbox') {
           group[element.title] = new FormArray([], this.minSelected(1))
           element.options.map(i => {
@@ -49,7 +35,6 @@ export class HomeService {
         }      
       }
       else{
-        console.log("false", element.title)
         if (element.questionType === 'Checkbox') {
           group[element.title] = new FormArray([],null)
           element.options.map(i => {
@@ -62,8 +47,6 @@ export class HomeService {
         }
       }
     })
-
-
 
     return new FormGroup(group);
   }
