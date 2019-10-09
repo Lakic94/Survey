@@ -12,9 +12,11 @@
 
 
                                         <div [ngSwitch]="question.questionType" id="elements">
-                                                <div *ngSwitchCase="'Input'" fxFlex="100" id="input">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                <div *ngSwitchCase="'Input'" fxFlex="100" id="input" >
+                                                        <mat-card-title [attr.for]="question.title" >{{question.title}} <span 
+                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
                                                         </mat-card-title>
+                                                       
                                                         <mat-card-content>
                                                                 <mat-form-field>
                                                                         <input matInput
@@ -22,6 +24,7 @@
                                                                                 [id]="question.title"
                                                                                 [type]="question.questionType"
                                                                                 placeholder="Input Text Here">
+                                                                                
                                                                 </mat-form-field>
                                                                 <div *ngIf="validateControl(question.title)"
                                                                         class="error">Field can't be empty!</div>
@@ -31,7 +34,8 @@
                                                 </div>
 
                                                 <div *ngSwitchCase="'Text'" fxFlex="100" id="input">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
+                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
                                                         </mat-card-title>
                                                         <mat-card-content>
                                                                 <mat-form-field>
@@ -49,10 +53,12 @@
                                                 </div>
 
                                                 <div *ngSwitchCase="'Select'" fxFlex="100">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
+                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
                                                         </mat-card-title>
                                                         <mat-card-content id="select-test">
                                                                 <mat-form-field>
+                                                                        <mat-label>Select Option</mat-label>
                                                                         <mat-select [id]="question.title"
                                                                                 [formControlName]="question.title">
                                                                                 <mat-option
@@ -69,7 +75,8 @@
                                                 </div>
 
                                                 <div *ngSwitchCase="'Radio'" fxFlex="100">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
+                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
                                                         </mat-card-title>
                                                         <mat-card-content>
                                                                 <mat-radio-group [formControlName]="question.title"
@@ -90,7 +97,8 @@
                                                 </div>
 
                                                 <div *ngSwitchCase="'Checkbox'" fxFlex="100">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}}
+                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
+                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
                                                         </mat-card-title>
                                                         <mat-card-content fxLayout="column">
                                                                 <label [formArrayName]="question.title"

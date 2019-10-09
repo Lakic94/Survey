@@ -40,6 +40,7 @@ export class AnswersComponent implements OnInit {
     this._rowId = this.route.snapshot.paramMap.get('id');
     this.form = this._formBuilder.group({})
     this.getQuestions();
+    console.log(this.form)
   }
 
   getQuestions() {
@@ -100,6 +101,24 @@ export class AnswersComponent implements OnInit {
   }
 
   validateControl(controlName) {
+    // for (const element of this.questions) {
+    //   if (element.title == controlName) {
+    //     console.log("ima")
+    //     if (element.required) {
+    //       console.log(controlName)
+
+    //       return false;
+
+
+    //     }
+    //     else{
+    //       return true
+    //     }
+    //     break;
+
+    //   }
+    // }
+
     if (this.form.controls[controlName].invalid && this.form.controls[controlName].touched) {
 
       return true;

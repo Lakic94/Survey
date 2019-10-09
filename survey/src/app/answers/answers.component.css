@@ -20,7 +20,7 @@ mat-form-field {
 }
 
 #select-test {
-    width: 40%;
+    width: 50%;
 }
 
 hr {
@@ -30,4 +30,8 @@ hr {
     border-top: 1px solid rgba(24, 23, 23, 0.06);
     margin-top: 10%;
     padding: 0;
+}
+
+.id{
+    color: red;
 }

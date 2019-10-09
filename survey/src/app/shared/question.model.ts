@@ -2,6 +2,7 @@
 export class Question {
     title: string;
     questionType: string;
+    required:boolean;
     options?: [];
     answers?: any[];
 

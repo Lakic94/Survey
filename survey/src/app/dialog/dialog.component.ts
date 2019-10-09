@@ -21,7 +21,7 @@ export class DialogComponent implements OnInit {
     'Select',
     'Text'
   ]
-
+  checked = false;
   survey: formModel;
   res: any;
   typeOfQuestion = false;
@@ -90,6 +90,7 @@ export class DialogComponent implements OnInit {
       console.log(question)
       question.option(options);
     }
+    question.required = this.checked;
     this.survey.questions.push(question)
   }
 
@@ -110,6 +111,7 @@ export class DialogComponent implements OnInit {
   }
 
   questionTypeValidator() {
+
     this.questionFormGroup.get('questionType').valueChanges.subscribe(questionType => {
       if (questionType === "Input" || questionType === "Text") {
         this.questionFormGroup.get('options').setValidators(null)
@@ -120,5 +122,10 @@ export class DialogComponent implements OnInit {
       this.questionFormGroup.get('options').updateValueAndValidity();
     })
   }
+
+  changed(){
+   this.checked = !this.checked;
+  }
 }
 
+ 
