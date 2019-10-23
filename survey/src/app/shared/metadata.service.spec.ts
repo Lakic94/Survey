@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HomeService } from './home.service';
+import { MetadataService } from './metadata.service';
 
-describe('HomeService', () => {
+describe('MetadataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: HomeService = TestBed.get(HomeService);
+    const service: MetadataService = TestBed.get(MetadataService);
     expect(service).toBeTruthy();
   });
 });

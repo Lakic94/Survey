@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="card">
+    <mat-card-title [attr.for]="question.title"
+      >{{ question.title }}
+      <span class="id" *ngIf="form.controls[question.title].validator != null"
+        >*</span
+      >
+    </mat-card-title>
+    <mat-card-content fxLayout="column" [formGroup]="form">
+      <label
+        [formArrayName]="question.title"
+        *ngFor="let opt of question.options; let i = index"
+      >
+        <mat-checkbox [formControlName]="i" [value]="opt">
+          {{ opt }}
+        </mat-checkbox>
+      </label>
+      <mat-error *ngIf="validateControl(question.title)" class="error">
+          Field can't be empty!
+      </mat-error>
+    </mat-card-content>
+  </div>
+</div>

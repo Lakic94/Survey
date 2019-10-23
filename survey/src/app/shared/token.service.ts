@@ -5,10 +5,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
   providedIn: 'root'
 })
 export class TokenService {
-
-  constructor(
-    private oauthService: OAuthService
-  ) { }
+  constructor(private oauthService: OAuthService) {}
 
   public get name() {
     let token = this.oauthService.getAccessToken();
@@ -22,7 +19,7 @@ export class TokenService {
     return data;
   }
 
-  getId(){
+  getId() {
     const id = this.getClaims().sub;
     return id;
   }

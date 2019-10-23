@@ -1,9 +1,9 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8000',
+  apiUrl: 'http://10.1.0.69:55002',
 
   // Url of the Identity Provider
-  issuer: 'http://localhost:5000',
+  issuer: 'http://10.1.0.69:55501',
 
   // URL of the SPA to redirect the user to after login
   redirectUri: 'http://localhost:4200/',
@@ -13,21 +13,20 @@ export const environment = {
 
   // set the scope for the permissions the client should request
   // The first three are defined by OIDC. The 4th is a usecase-specific one
-  scope: 'profile openid ComData.SAS.BI.Metadata.API',
+  scope:
+    'profile openid ComData.SAS.BI.Metadata.API user_role user_name company_name',
   // AuthConfig: {
 
   //   issuer: 'http://localhost:5000',
 
   //   redirectUri: 'http://localhost:4200/signin-oidc',
 
-  //   postLogoutRedirectUri: 'http://localhost:4200',
+  postLogoutRedirectUri: 'http://localhost:4200/',
 
   //   clientId: 'ComData.Survey',
 
   //   scope: 'profile openid ComData.SAS.BI.Metadata.API',
-  //   disablePKCE: true,
-  //   requireHttps: false
+  disablePKCE: true,
+  requireHttps: false
   // }
-
 };
-

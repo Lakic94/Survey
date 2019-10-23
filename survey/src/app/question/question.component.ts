@@ -1,87 +1,127 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
-import { HomeService } from '../home/home.service';
-import { FormsService } from '../shared/forms.service';
-import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
-import { formModel } from '../shared/form.model';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormsModule
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenService } from '../shared/token.service';
+import { Observable } from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
+import { AddQuestionDialogComponent } from '../add-question-dialog/add-question-dialog.component';
+import { MetadataService } from '../shared/metadata.service';
+import { FormsService } from '../shared/forms.service';
+import { formModel } from '../shared/model/form.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent implements OnInit {
-  matDialogRef: MatDialogRef<DialogComponent>;
+  matDialogRef: MatDialogRef<AddQuestionDialogComponent>;
   survey: formModel;
   form: FormGroup;
   questions: any = [];
   title: string;
   desc: string;
+  checked = true;
+  private rowId: any;
+  notValidate = true;
 
-  
-
-  private _rowId: any;
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    return this.checked;
+  }
 
   constructor(
     public matDialog: MatDialog,
-    private homeService: HomeService,
-    private sharedService: FormsService,
-    private _formBuilder: FormBuilder,
-    private router:Router,
+    private metaService: MetadataService,
+    private formsService: FormsService,
+    private formBuilder: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute,
-    private tokenService: TokenService
-  ) {
-    this.homeService.rowIdChanged.subscribe(result => {
-      this._rowId = result;
-    });
-  }
-
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
-    this._rowId = this.route.snapshot.paramMap.get('id');
-    this.form = this._formBuilder.group({})
+    this.rowId = this.route.snapshot.paramMap.get('id');
+    this.form = this.formBuilder.group({});
     this.getQuestions();
   }
 
   openDialog() {
-    this.matDialogRef = this.matDialog.open(DialogComponent, {
-      data: this._rowId
-    })
-
-    this.matDialogRef.afterClosed().subscribe(a => {
-      this.getQuestions()
-    })
+    this.matDialog
+      .open(AddQuestionDialogComponent)
+      .afterClosed()
+      .subscribe(a => {
+        if (a !== undefined) {
+          this.questions.push(a);
+          this.form = this.formsService.toFormGroup(this.questions);
+          this.checked = false;
+        }
+        console.log(this.questions);
+        console.log(a);
+      });
   }
 
   getQuestions() {
-    this.questions = []
-    this.form.reset()
-    return this.sharedService.getById('Survey', this._rowId).subscribe(e => {
-      this.survey = e;
-      if (e.questions === undefined) {
-        return;
-      }
-      else {
-        for (let i of e.questions) {
-          this.questions.push(i)
+    return this.metaService
+      .getById('Survey', this.rowId)
+      .subscribe(response => {
+        this.survey = response;
+
+        if (response.questions) {
+          for (let i of response.questions) {
+            this.questions.push(i);
+          }
+          this.form = this.formsService.toFormGroup(this.questions);
         }
-      }
-      this.form = this.homeService.toFormGroup(this.questions);
-    })
-    
+      });
   }
 
   deleteQuestion(event) {
-    this.survey.questions.splice(event, 1)
-    delete this.survey._id
-    this.sharedService.update("Survey", this._rowId, this.survey
-    ).subscribe(e => this.getQuestions())
+    console.log(event);
+    this.questions.splice(event, 1);
+    this.checked = false;
   }
 
-  navigate(){
-    this.router.navigate(['/answer/', this._rowId]);
+  navigate() {
+    this.router.navigate(['/answer/', this.rowId]);
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.questions, event.previousIndex, event.currentIndex);
+    this.checked = false;
+  }
+
+  saveQuestion() {
+    this.survey.questions = this.questions;
+    delete this.survey._id;
+    this.metaService.update('Survey', this.rowId, this.survey).subscribe();
+    this.checked = true;
+    this.snackBar.open('Saved', 'Close', {
+      duration: 2000
+    });
+  }
+
+  edit(index) {
+    this.matDialog
+      .open(AddQuestionDialogComponent, {
+        data: this.questions[index]
+      })
+      .afterClosed()
+      .subscribe(a => {
+        if (a !== undefined) {
+          this.questions.splice(index, 1, a);
+          this.form = this.formsService.toFormGroup(this.questions);
+          this.checked = false;
+          console.log(a);
+        }
+      });
   }
 }

@@ -1,0 +1,25 @@
+<h5 mat-dialog-title>Confirm action</h5>
+
+<mat-dialog-content>
+    {{ message }}
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onYesResponse()"
+    tabindex="-1"
+  >
+    Yes
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="onNoResponse()"
+    tabindex="-1"
+  >
+    No
+  </button>
+  <button mat-raised-button mat-dialog-close tabindex="-1">Cancel</button>
+</mat-dialog-actions>

@@ -6,8 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AppInitService {
-
-  constructor(private oauthService: OAuthService) { }
+  constructor(private oauthService: OAuthService) {}
 
   Init() {
     return new Promise<void>((resolve, reject) => {
@@ -19,5 +18,4 @@ export class AppInitService {
       }, 1000);
     });
   }
-
 }

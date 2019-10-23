@@ -1,113 +1,122 @@
 <div fxLayoutAlign="space-around stretch" class="container">
-        <div *ngIf="form" fxFlex=35>
+  <div *ngIf="questions?.length > 0" fxFlex="40">
+    <div
+      cdkDropList
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+      fxFlex="100"
+    >
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-between stretch"
+        class="example-box"
+        *ngFor="let question of questions; let i = index"
+        cdkDragLockAxis="y"
+        cdkDrag
+      >
+        <mat-card fxFlex="100">
+          <div [ngSwitch]="question.questionType">
+            <div *ngSwitchCase="'Input'">
+              <app-input-question
+                [question]="question"
+                [form]="form"
+                [notValidate]="notValidate"
+                (deleted)="deleteQuestion(i)"
+              ></app-input-question>
+            </div>
 
-                <form [formGroup]="form" fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="space-around stretch">
-                        <div fxLayout="row" id="test" fxLayoutAlign="space-between stretch"
-                                *ngFor="let question of questions; let i = index">
+            <div *ngSwitchCase="'Text'">
+              <app-text-question
+                [question]="question"
+                [form]="form"
+                [notValidate]="notValidate"
+                (deleted)="deleteQuestion(i)"
+              ></app-text-question>
+            </div>
 
-                                <div [ngSwitch]="question.questionType" id="align-delete">
-                                        <mat-card *ngSwitchCase="'Input'" fxFlex="100">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}</mat-card-title>
-                                                <hr>
-                                                <mat-card-content>
-                                                        <mat-form-field>
-                                                                <input matInput [formControlName]="question.title"
-                                                                        [id]="question.title"
-                                                                        [type]="question.questionType"
-                                                                        placeholder="Input question">
-                                                        </mat-form-field>
-                                                        <div class="delete">
-                                                                <button mat-flat-button (click)="deleteQuestion(i)">
-                                                                        <mat-icon>delete</mat-icon>
-                                                                </button>
-                                                        </div>
+            <div *ngSwitchCase="'Select'">
+              <app-select-question
+                [question]="question"
+                [form]="form"
+                [notValidate]="notValidate"
+                (deleted)="deleteQuestion(i)"
+              ></app-select-question>
+            </div>
 
-                                                </mat-card-content>
-                                        </mat-card>
+            <div *ngSwitchCase="'Checkbox'">
+              <app-checkbox-question
+                [question]="question"
+                [form]="form"
+                [notValidate]="notValidate"
+                (deleted)="deleteQuestion(i)"
+              ></app-checkbox-question>
+            </div>
 
-                                        <mat-card *ngSwitchCase="'Text'" fxFlex="100">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}
-                                                </mat-card-title>
-                                                <hr>
-                                                <mat-card-content>
-                                                        <mat-form-field>
-                                                                <textarea matInput [formControlName]="question.title"
-                                                                        [id]="question.title"
-                                                                        [type]="question.questionType"
-                                                                        placeholder="Text question"></textarea>
-                                                                </mat-form-field>
-                                                                <div class="delete">
-                                                                        <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
-                                                                </div>
-                                                               
-                                                        </mat-card-content>
-                                                </mat-card>
-
-
-                                        <mat-card *ngSwitchCase="'Select'" fxFlex="100">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}
-                                                </mat-card-title>
-                                                <hr>
-                                                <mat-card-content>
-                                                        <mat-form-field>
-                                                                <mat-select [id]="question.title"
-                                                                        [formControlName]="question.title">
-                                                                        <mat-option *ngFor="let opt of question.options"
-                                                                                [value]="opt">{{opt}}
-                                                                        </mat-option>
-                                                                </mat-select>
-                                                                
-                                                        </mat-form-field>
-                                                        <div class="delete">
-                                                                <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
-                                                        </div>
-                                                </mat-card-content>
-                                        </mat-card>
-
-                                        <mat-card *ngSwitchCase="'Radio'" fxFlex="100">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}
-                                                </mat-card-title>
-                                                <hr>
-                                                <mat-card-content>
-                                                        <mat-radio-group [formControlName]="question.title"
-                                                                [id]="question.title" layout="row">
-                                                                <mat-radio-button *ngFor="let opt of question.options"
-                                                                        [value]="opt">
-                                                                        {{opt}}
-                                                                </mat-radio-button>
-                                                        </mat-radio-group>
-                                                        <div class="delete">
-                                                                <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
-                                                        </div>
-                                                       
-                                                </mat-card-content>
-                                        </mat-card>
-
-                                        <mat-card *ngSwitchCase="'Checkbox'" fxFlex="100">
-                                                <mat-card-title [attr.for]="question.title">{{question.title}}
-                                                </mat-card-title>
-                                                <hr>
-                                                <mat-card-content fxLayout="column">
-                                                        <label [formArrayName]="question.title"
-                                                                *ngFor="let opt of question.options; let i = index;">
-                                                                <mat-checkbox [formControlName]="i" [value]="opt">
-                                                                        {{opt}}
-                                                                </mat-checkbox>
-                                                        </label>
-                                                        <div class="delete">
-                                                                <button  mat-flat-button (click)="deleteQuestion(i)"><mat-icon>delete</mat-icon></button>
-                                                        </div>
-                                                        
-                                                </mat-card-content>
-                                        </mat-card>
-
-                                        
-                                </div>
-                        </div>
-
-                        <button class="add-button" type="button" mat-flat-button (click)="openDialog()" color="primary">Add question</button>
-                </form>
-        </div>
+            <div *ngSwitchCase="'Radio'">
+              <app-radio-question
+                [question]="question"
+                [form]="form"
+                [notValidate]="notValidate"
+                (deleted)="deleteQuestion(i)"
+              ></app-radio-question>
+            </div>
+          </div>
+          <hr />
+          <div class="delete-button">
+            <ng-container>
+              <button
+                mat-flat-button
+                (click)="deleteQuestion(i)"
+                class="delete-button"
+                matTooltip="Delete"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button
+                mat-flat-button
+                (click)="edit(i)"
+                class="edit-button"
+                matTooltip="Edit"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </ng-container>
+          </div>
+        </mat-card>
+      </div>
+      <div class="save">
+        <button
+          mat-raised-button
+          [disabled]="checked"
+          (click)="saveQuestion()"
+          color="primary"
+          matTooltip="Save questions"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-<button mat-flat-button color="primary" class="live" (click)="navigate()">LIVE</button>
 
+<button
+  class="add-button"
+  type="button"
+  mat-fab
+  (click)="openDialog()"
+  color="primary"
+>
+  <mat-icon matTooltip="Add Question">
+    add
+  </mat-icon>
+</button>
+
+<div
+  *ngIf="questions?.length < 1"
+  fxLayoutAlign="space-around stretch"
+  class="container"
+>
+  <h1 class="mat-h1">
+    No Questions!
+  </h1>
+</div>

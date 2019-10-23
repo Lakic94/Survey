@@ -1,0 +1,21 @@
+<mat-card-title [attr.for]="question.title"
+  >{{ question.title }}
+  <span class="id" *ngIf="form.controls[question.title].validator != null"
+    >*</span
+  >
+</mat-card-title>
+<mat-card-content [formGroup]="form">
+  <mat-radio-group [formControlName]="question.title" [id]="question.title">
+    <mat-radio-button
+      fxLayoutAlign="space-around start"
+      fxLayout="column"
+      *ngFor="let opt of question.options"
+      [value]="opt"
+    >
+      {{ opt }}
+    </mat-radio-button>
+  </mat-radio-group>
+  <mat-error *ngIf="validateControl(question.title)" class="error"
+    >Field can't be empty!
+  </mat-error>
+</mat-card-content>

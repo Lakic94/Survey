@@ -1,129 +1,77 @@
 <div fxLayoutAlign="space-around stretch" class="container">
-        <div *ngIf="form" fxFlex=50>
+  <div *ngIf="form" fxFlex="50">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      fxLayout="column"
+      fxLayoutGap="30px"
+      fxLayoutAlign="space-around stretch"
+    >
+      <div *ngIf="survey">
+        <h1 class="mat-display-1">{{ survey.title }}</h1>
+        <h3 class="mat-h2">{{ survey.description }}</h3>
+      </div>
+      <mat-card>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between stretch"
+          *ngFor="let question of questions; let i = index"
+        >
+          <div [ngSwitch]="question.questionType" id="elements">
+            <div *ngSwitchCase="'Input'" fxFlex="100" id="input">
+              <app-input-question
+                [question]="question"
+                [form]="form"
+              ></app-input-question>
+              <hr />
+            </div>
 
-                <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="30px"
-                        fxLayoutAlign="space-around stretch">
-                        <div *ngIf="survey">
-                                <h1 class="mat-display-1">{{survey.title}}</h1>
-                                <h3 class="mat-h2">{{survey.description}}</h3>
-                        </div>
-                        <mat-card>
-                                <div fxLayout="row" fxLayoutAlign="space-between stretch"
-                                        *ngFor="let question of questions; let i = index">
+            <div *ngSwitchCase="'Text'" fxFlex="100" id="input">
+              <app-text-question
+                [question]="question"
+                [form]="form"
+              ></app-text-question>
+              <hr />
+            </div>
 
+            <div *ngSwitchCase="'Select'" fxFlex="100">
+              <app-select-question
+                [question]="question"
+                [form]="form"
+              ></app-select-question>
+              <hr />
+            </div>
 
-                                        <div [ngSwitch]="question.questionType" id="elements">
-                                                <div *ngSwitchCase="'Input'" fxFlex="100" id="input" >
-                                                        <mat-card-title [attr.for]="question.title" >{{question.title}} <span 
-                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
-                                                        </mat-card-title>
-                                                       
-                                                        <mat-card-content>
-                                                                <mat-form-field>
-                                                                        <input matInput
-                                                                                [formControlName]="question.title"
-                                                                                [id]="question.title"
-                                                                                [type]="question.questionType"
-                                                                                placeholder="Input Text Here">
-                                                                                
-                                                                </mat-form-field>
-                                                                <div *ngIf="validateControl(question.title)"
-                                                                        class="error">Field can't be empty!</div>
-                                                        </mat-card-content>
-                                                        <hr>
+            <div *ngSwitchCase="'Radio'" fxFlex="100">
+              <app-radio-question
+                [question]="question"
+                [form]="form"
+              ></app-radio-question>
+              <hr />
+            </div>
 
-                                                </div>
-
-                                                <div *ngSwitchCase="'Text'" fxFlex="100" id="input">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
-                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
-                                                        </mat-card-title>
-                                                        <mat-card-content>
-                                                                <mat-form-field>
-                                                                        <textarea matInput
-                                                                                [formControlName]="question.title"
-                                                                                [id]="question.title"
-                                                                                [type]="question.questionType"
-                                                                                placeholder="Input Text Here"></textarea>
-                                                                        </mat-form-field>
-                                                                        <div *ngIf="validateControl(question.title)"
-                                                                                class="error">Field can't be empty!</div>
-                                                                </mat-card-content>
-                                                                <hr>
-        
-                                                </div>
-
-                                                <div *ngSwitchCase="'Select'" fxFlex="100">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
-                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
-                                                        </mat-card-title>
-                                                        <mat-card-content id="select-test">
-                                                                <mat-form-field>
-                                                                        <mat-label>Select Option</mat-label>
-                                                                        <mat-select [id]="question.title"
-                                                                                [formControlName]="question.title">
-                                                                                <mat-option
-                                                                                        *ngFor="let opt of question.options"
-                                                                                        [value]="opt">{{opt}}
-                                                                                </mat-option>
-                                                                        </mat-select>
-                                                                </mat-form-field>
-                                                                <div *ngIf="validateControl(question.title)"
-                                                                                class="error">Field can't be empty!
-                                                                        </div>
-                                                        </mat-card-content>
-                                                        <hr>
-                                                </div>
-
-                                                <div *ngSwitchCase="'Radio'" fxFlex="100">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
-                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
-                                                        </mat-card-title>
-                                                        <mat-card-content>
-                                                                <mat-radio-group [formControlName]="question.title"
-                                                                        [id]="question.title">
-                                                                        <mat-radio-button
-                                                                                fxLayoutAlign="space-around start"
-                                                                                fxLayout="column"
-                                                                                *ngFor="let opt of question.options"
-                                                                                [value]="opt">
-                                                                                {{opt}}
-                                                                        </mat-radio-button>
-                                                                </mat-radio-group>
-                                                                <div *ngIf="validateControl(question.title)"
-                                                                        class="error">Field can't be empty!
-                                                                </div>
-                                                        </mat-card-content>
-                                                        <hr>
-                                                </div>
-
-                                                <div *ngSwitchCase="'Checkbox'" fxFlex="100">
-                                                        <mat-card-title [attr.for]="question.title">{{question.title}} <span 
-                                                                class="id" *ngIf = "form.controls[question.title].validator != null">*</span>
-                                                        </mat-card-title>
-                                                        <mat-card-content fxLayout="column">
-                                                                <label [formArrayName]="question.title"
-                                                                        *ngFor="let opt of question.options; let i = index;">
-                                                                        <mat-checkbox [formControlName]="i"
-                                                                                [value]="opt">
-                                                                                {{opt}}
-                                                                        </mat-checkbox>
-                                                                </label>
-                                                                <div *ngIf="validateControl(question.title)"
-                                                                        class="checkboxError">
-                                                                        Select option</div>
-                                                        </mat-card-content>
-                                                        <hr>
-                                                </div>
-
-                                        </div>
-                                </div>
-                        </mat-card>
-
-                        <div>
-                                <button mat-raised-button type="submit" id="save" [disabled]="!form.valid"
-                                        color="primary">Save</button>
-                        </div>
-                </form>
+            <div *ngSwitchCase="'Checkbox'" fxFlex="100">
+              <app-checkbox-question
+                [question]="question"
+                [form]="form"
+              ></app-checkbox-question>
+              <hr />
+            </div>
+          </div>
         </div>
+      </mat-card>
+
+      <div>
+        <button
+          mat-raised-button
+          type="submit"
+          id="save"
+          [disabled]="!form.valid"
+          color="primary"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

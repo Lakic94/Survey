@@ -5,36 +5,23 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  constructor(private oauthService: OAuthService) {
-   
-  }
-
-  ngOnInit() {
-    this.getClaims()
-  }
-
-  public login() {
-    this.oauthService.initImplicitFlow();
-  }
-
-  public logoff() {
-    this.oauthService.logOut();
-  }
+  constructor(private oauthService: OAuthService) {}
 
   public get name() {
-    let token = this.oauthService.getAccessToken();
-    let claims = JSON.parse(atob(token.split('.')[1]));
-    if (!claims) return null;
+    const token = this.oauthService.getAccessToken();
+    const claims = JSON.parse(atob(token.split('.')[1]));
+    if (!claims) {
+      return null;
+    }
+
     return claims;
   }
 
   getClaims() {
-    let data = this.name;
+    const data = this.name;
     return data;
   }
-
 }

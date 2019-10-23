@@ -1,0 +1,103 @@
+.add-button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+mat-card {
+  height: 100%;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 70%;
+  background-color: #fff4f0;
+}
+
+mat-radio-button {
+  margin: 20px 10px;
+}
+
+md-checkbox ._md-label {
+  margin-left: 20px;
+}
+
+.delete:hover {
+  cursor: pointer;
+}
+
+.example-list {
+  width: 500px;
+  max-width: 100%;
+  min-height: 60px;
+  display: block;
+  background: honeydew;
+  overflow: hidden;
+}
+
+.example-box {
+  padding: 20px 10px;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  font-size: 14px;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid rgba(24, 23, 23, 0.06);
+  padding: 0;
+}
+
+.save {
+  margin-top: 20px;
+  float: right;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+mat-card{
+  padding: none;
+}
+.delete-button{
+  float: right;
+}
+
+.delete-button{
+  color: red;
+}
+
+.edit-button{
+  color: blue;
+}

@@ -1,77 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
-import { FormsService } from '../shared/forms.service';
+import { MetadataService } from '../shared/metadata.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddSurveyDialogComponent } from '../add-survey-dialog/add-survey-dialog.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HomeService } from './home.service';
 import { TokenService } from '../shared/token.service';
-
-
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
-
-
 export class HomeComponent implements OnInit {
-  data = [];
+  tableData = [];
 
-  displayedColumns: string[] = ['Title','actions'];
-  dataSource = new MatTableDataSource<any>(this.data);
+  displayedColumns: string[] = ['Title', 'actions'];
+  dataSource = new MatTableDataSource<any>(this.tableData);
   sub: any;
   id: any;
   matDialogRef: MatDialogRef<AddSurveyDialogComponent>;
 
   filter = {
-    userId : this.tokenService.getId()
-  }
+    userId: this.tokenService.getId()
+  };
 
-  constructor(private fb: FormBuilder,
-    private sharedService: FormsService,
+  constructor(
+    private metaService: MetadataService,
     public matDialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute,
-    private homeService: HomeService,
-    private tokenService:TokenService) {
-    // this.sub = this.route.params.subscribe(params => {
-    //   this.id = params['id'];
-    //   console.log(this.id);
-    // });
-  }
-
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit() {
-      this.loadData();
+    this.loadData();
   }
 
   openDialog() {
     this.matDialogRef = this.matDialog.open(AddSurveyDialogComponent, {
-    })
-    
-    this.matDialogRef.afterClosed().subscribe(a => {
-      this.loadData()
-    })
-  }
+      width: '400px',
+      maxHeight: '500px'
+    });
 
-  clickOnRow(id) {
-    this.homeService.emitRowIdChanged(id);
-    this.router.navigateByUrl('/create/' + id);
+    this.matDialogRef.afterClosed().subscribe(a => {
+      this.loadData();
+    });
   }
 
   loadData() {
-    this.sharedService.getByFilter('Survey', this.filter).subscribe(data => {
-      this.dataSource = new MatTableDataSource(data)
+    this.metaService.getByFilter('Survey', this.filter).subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
     });
   }
-  
-  share(id){
-    this.router.navigateByUrl('/answer/'+id)
+
+  navigateToAnswer(id) {
+    this.router.navigateByUrl('/answer/' + id);
   }
 
+  navigateToQuestion(id) {
+    this.router.navigateByUrl('/create/' + id);
+  }
 }
-
-

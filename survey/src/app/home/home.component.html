@@ -1,28 +1,36 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center stretch" fxFlexFill>
-    <div fxFlex="100" fxLayoutAlign="center center">
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <ng-container id="row" matColumnDef="Title">
-                <mat-header-cell *matHeaderCellDef>Survey Title</mat-header-cell>
-                <mat-cell *matCellDef="let data"> {{data.title}} </mat-cell>
-            </ng-container>
+  <div fxFlex="100" fxLayoutAlign="center center">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container id="row" matColumnDef="Title">
+        <mat-header-cell *matHeaderCellDef>Survey Title</mat-header-cell>
+        <mat-cell *matCellDef="let data"> {{ data.title }} </mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef fxFlex="10%" >Share </mat-header-cell>
-                <mat-cell *matCellDef="let row" fxFlex="10%"  class="content-align">
-                    <button mat-icon-button matTooltip="Click to Share" class="iconbutton" color="warn" (click)="share(row.id)">
-                        <mat-icon color="primary" aria-label="Share">share</mat-icon>
-                    </button>
-                </mat-cell>
-            </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="10%" >Share </mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="10%" class="content-align">
+          <button
+            mat-icon-button
+            matTooltip="Click to Share"
+            class="iconbutton"
+            color="warn"
+            (click)="navigateToAnswer(row.id)"
+          >
+            <mat-icon color="primary" aria-label="Share">share</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
 
-
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row (click)="clickOnRow(row.id)"  *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <div>
-            <button class="button" mat-fab color="primary" (click)="openDialog()">
-                <i class="material-icons">add</i></button>
-        </div>
+      <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        (click)="navigateToQuestion(row.id)"
+        *matRowDef="let row; columns: displayedColumns"
+      ></mat-row>
+    </mat-table>
+    <div>
+      <button class="button" mat-fab color="primary" (click)="openDialog()">
+        <i class="material-icons" matTooltip="Add Survey">add</i>
+      </button>
     </div>
+  </div>
 </div>

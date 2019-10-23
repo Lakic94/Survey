@@ -1,43 +1,55 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {
+  FormArray,
+  FormControl,
+  Validators,
+  FormGroup,
+  ValidatorFn
+} from '@angular/forms';
+import { MetadataService } from './metadata.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormsService {
+  constructor(private metaService: MetadataService) {}
 
-  constructor(private http: HttpClient) { }
+  toFormGroup(questions: any) {
+    const group: any = {};
+    questions.forEach(element => {
+      if (element.required === true) {
+        if (element.questionType === 'Checkbox') {
+          group[element.title] = new FormArray([], this.minSelected(1));
+          element.options.map(i => {
+            i = new FormControl(null);
+            (group[element.title] as FormArray).push(i);
+          });
+        } else {
+          group[element.title] = new FormControl('', Validators.required);
+        }
+      } else {
+        if (element.questionType === 'Checkbox') {
+          group[element.title] = new FormArray([], null);
+          element.options.map(i => {
+            i = new FormControl(null);
+            (group[element.title] as FormArray).push(i);
+          });
+        } else {
+          group[element.title] = new FormControl('');
+        }
+      }
+    });
 
-  readonly Url = "http://localhost:8000/api/Metadata/";
-
-  getById(collection: string, id: string): Observable<any> {
-    return this.http.get(this.Url + `${collection}/${id}`);
+    return new FormGroup(group);
   }
 
-  getAll(collection: string): Observable<any> {
-    return this.http.get(this.Url + `${collection}`);
+  minSelected(min = 1) {
+    const validator: ValidatorFn = (formArray: FormArray) => {
+      const totalSelected = formArray.controls
+        .map(control => control.value)
+        .reduce((prev, next) => (next ? prev + next : prev), 0);
+      return totalSelected >= min ? null : { required: true };
+    };
+    return validator;
   }
-
-  add(collection: string, data: any): Observable<any> {
-    return this.http.post(this.Url + `${collection}`, data);
-  }
-
-  update(collection: string, id: string, data: any): Observable<any> {
-    return this.http.put(this.Url + `${collection}/${id}`, data);
-  }
-
-  delete(collection: string, id: string): Observable<any> {
-    return this.http.delete(this.Url + `${collection}/${id}`);
-  }
-
-  getByFilter(collection: string, id: Object): Observable<any> {
-    return this.http.post(this.Url + `${collection}/filter`, id);
-  }
-
-  filter(collectionName: string, filter: any): Observable<any[]> {
-    const urlApi = this.Url + collectionName + "/filter";
-    return this.http.post<any[]>(urlApi, filter);
-  }
-
 }

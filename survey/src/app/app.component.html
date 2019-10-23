@@ -1,16 +1,3 @@
-<mat-toolbar color="primary">
-    <div fxLayout="row" fxLayoutAlign=" space-between end">
-        <!-- <button mat-flat-button routerLink="/" color="primary">
-            <i class="material-icons md-dark">
-                home
-            </i></button> -->
-        <mat-icon id="home"  routerLink="/">home</mat-icon>
-    </div>
-
-    <!-- <button id="right" mat-flat-button class="btn btn-default" (click)="logoff()" color="primary">
-        Logout
-    </button> -->
-    <mat-icon id="right" (click)="logoff()">input</mat-icon>
-</mat-toolbar>
+<app-header></app-header>
 
 <router-outlet></router-outlet>
