@@ -21,7 +21,7 @@
         </mat-cell>
       </ng-container>
 
-      <mat-header-row class="header" *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-header-row class="mat-primary" *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row
         (click)="navigateToQuestion(row.id)"
         *matRowDef="let row; columns: displayedColumns"

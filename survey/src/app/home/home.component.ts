@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   openDialog() {
     this.matDialogRef = this.matDialog.open(AddSurveyDialogComponent, {
       width: '400px',
-      maxHeight: '500px'
+      maxHeight: '1000px'
     });
 
     this.matDialogRef.afterClosed().subscribe(a => {

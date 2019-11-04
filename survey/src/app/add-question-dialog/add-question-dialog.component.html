@@ -15,14 +15,14 @@
             required
           ></textarea>
         </mat-form-field>
-        <mat-slide-toggle (change)="changed()">
+        <mat-slide-toggle (change)="changed()" class="slide-toggle">
           Required
         </mat-slide-toggle>
-        <div mat-dialog-actions align="end">
+        <mat-dialog-actions>
           <button mat-button matStepperNext type="button" color="primary">
             Next
           </button>
-        </div>
+        </mat-dialog-actions>
       </mat-step>
 
       <mat-step [stepControl]="questionFormGroup">
@@ -40,12 +40,12 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <div mat-dialog-actions align="end">
+        <mat-dialog-actions>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext type="button" color="primary">
             Next
           </button>
-        </div>
+        </mat-dialog-actions>
       </mat-step>
 
       <mat-step *ngIf="typeOfQuestion" [stepControl]="questionFormGroup">
@@ -78,17 +78,17 @@
         >
           <mat-icon>add</mat-icon>
         </button>
-        <div mat-dialog-actions align="end">
+        <mat-dialog-actions>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext type="button" color="primary">
             Next
           </button>
-        </div>
+        </mat-dialog-actions>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <div mat-dialog-actions align="center">
+        <mat-dialog-actions align="center">
           <button
             mat-flat-button
             type="submit"
@@ -97,7 +97,7 @@
           >
             Submit
           </button>
-        </div>
+        </mat-dialog-actions>
       </mat-step>
     </mat-horizontal-stepper>
   </form>

@@ -17,6 +17,7 @@ import { FormsService } from '../shared/forms.service';
 import { formModel } from '../shared/model/form.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { SpinnerService } from '../spinner/spinner.service';
 
 @Component({
   selector: 'app-question',
@@ -34,11 +35,6 @@ export class QuestionComponent implements OnInit {
   private rowId: any;
   notValidate = true;
 
-  @HostListener('window:beforeunload')
-  canDeactivate(): Observable<boolean> | boolean {
-    return this.checked;
-  }
-
   constructor(
     public matDialog: MatDialog,
     private metaService: MetadataService,
@@ -46,7 +42,8 @@ export class QuestionComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
@@ -77,7 +74,7 @@ export class QuestionComponent implements OnInit {
         this.survey = response;
 
         if (response.questions) {
-          for (let i of response.questions) {
+          for (const i of response.questions) {
             this.questions.push(i);
           }
           this.form = this.formsService.toFormGroup(this.questions);

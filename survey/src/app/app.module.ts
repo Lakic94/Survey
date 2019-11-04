@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,9 @@ import { RadioQuestionComponent } from './question-types/radio-question/radio-qu
 import { HeaderComponent } from './header/header.component';
 import { PendingChangesGuard } from './can-deactivate/pending-changes.guard';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './spinner/spinner.service';
+import { InterceptorService } from './interceptors/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     CheckboxQuestionComponent,
     RadioQuestionComponent,
     HeaderComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +72,14 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
       multi: true,
       deps: [AppInitService]
     },
-    PendingChangesGuard
+    PendingChangesGuard,
+    SpinnerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+  },
+
   ],
   bootstrap: [AppComponent]
 })

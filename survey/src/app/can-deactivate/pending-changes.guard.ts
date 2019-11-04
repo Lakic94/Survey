@@ -18,7 +18,7 @@ export class PendingChangesGuard
   canDeactivate(component: any) {
     const subject = new Subject<boolean>();
 
-    if (!component.canDeactivate()) {
+    if (!component.checked) {
       this.confirmDlg = this.dialog.open(ConfirmDialogComponent, {
         disableClose: true,
         height: '200px'
